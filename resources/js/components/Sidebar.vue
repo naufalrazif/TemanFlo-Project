@@ -47,7 +47,7 @@
 </template>
 
 <script setup>
-import ButtonBack from "@/Components/buttonBack.vue";
+import ButtonBack from "@/components/buttonBack.vue";
 </script>
 
 <style scoped>

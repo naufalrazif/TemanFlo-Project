@@ -86,7 +86,7 @@
 </template>
 
 <script setup>
-import AppLayout from '@/Layouts/AppLayout.vue'
+//import AppLayout from '@/Layouts/AppLayout.vue'
 import DropdownSort from '@/Components/Dropdown.vue'
 import ButtonBack from '@/Components/buttonBack.vue'
 import EditProduk from '@/Pages/Edit.vue' // <-- tambahkan ini
