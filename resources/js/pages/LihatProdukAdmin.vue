@@ -24,6 +24,7 @@
           Tambah Produk
         </button>
       </div>
+      
 
       <!-- Table Section -->
       <div class="px-10">
@@ -86,7 +87,7 @@
 </template>
 
 <script setup>
-//import AppLayout from '@/Layouts/AppLayout.vue'
+import AppLayout from '@/layouts/AppLayout.vue'
 import DropdownSort from '@/components/Dropdown.vue'
 import ButtonBack from '@/components/buttonBack.vue'
 import EditProduk from '@/pages/Edit.vue' // <-- tambahkan ini
@@ -120,6 +121,8 @@ const hapusProduk = (item) => {
     products.value = products.value.filter(p => p !== item)
   }
 }
+
+//const modal = computed(() => page.props.modal)
 </script>
 
 <style scoped>

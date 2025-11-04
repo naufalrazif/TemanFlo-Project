@@ -53,4 +53,8 @@ Route::get('/edit-produk', function () {
     ]);
 });
 
+Route::get('/custom-order', function () {
+   return Inertia::render('CustomOrder');
+});
+
 

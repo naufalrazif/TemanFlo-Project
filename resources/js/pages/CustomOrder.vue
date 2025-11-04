@@ -77,7 +77,7 @@
 <script setup>
 import { reactive } from "vue";
 import { router } from "@inertiajs/vue3";
-import ButtonBack from "./components/buttonBack.vue";
+import buttonBack from "@/components/buttonBack.vue";
 
 const form = reactive({
   nama: "",
