@@ -16,7 +16,7 @@ interface Produk {
   foto: string;
 }
 
-const props = defineProps<{ produk: Produk }>()
+const props = defineProps<{ produk: Produk }>();
 
 const form = useForm({
   nama: props.produk.nama,
@@ -29,7 +29,7 @@ const form = useForm({
 
 const handleSubmit = () => {
   form.put(`/produk/${props.produk.id}`, {
-    method: 'put', // penting! untuk Laravel baca sebagai PUT
+    method: 'put', 
     forceFormData: true,
     onSuccess: () => {
       form.reset('foto')
@@ -50,6 +50,7 @@ const handleFileChange = (event: Event) => {
 </script>
 
 <template>
+    <form @submit.prevent="handleSubmit">
     <div class="bg-[#f3cbb7] p-6 rounded-xl space-y-4">
     <h2 class="text-lg font-semibold">Tambah Produk</h2>
 
@@ -111,9 +112,10 @@ const handleFileChange = (event: Event) => {
     </div>
 
     <div class="flex justify-end">
-      <Button class="bg-[#5c7b66] hover:bg-[#4e6958] text-white"  @click="handleSubmit">
+      <Button type="submit" class="bg-[#5c7b66] hover:bg-[#4e6958] text-white"  >
         Submit
       </Button>
     </div>
   </div>
+  </form>   
 </template>

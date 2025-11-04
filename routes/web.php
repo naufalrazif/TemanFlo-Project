@@ -1,7 +1,29 @@
 <?php
 
-use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
+use App\Http\Controllers\ProdukController;
+
+Route::get('/', function () {
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+});
+
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
 //route melihat daftar produk
 Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
@@ -17,39 +39,4 @@ Route::delete('/produk/{id}', [ProdukController::class, 'destroy'])->name('produ
 Route::get('/produk/{id}/edit', [ProdukController::class, 'edit'])->name('produk.edit');
 Route::put('/produk/{id}', [ProdukController::class, 'update'])->name('produk.update');
 
-
-//Lailla mulai disini
-Route::get('/', function () {
-    return Inertia::render('Home');
-});
-Route::get('/signup', function () {
-    return Inertia::render('SignUp');
-});
-Route::get('/login', function () {
-    return Inertia::render('Login');
-});
-Route::get('/guide', function () {
-    return Inertia::render('OrderGuide');
-});
-Route::get('/footer', function () {
-    return Inertia::render('About');
-});
-Route::get('/allbunga', function () {
-    return Inertia::render('AllBunga');
-});
-Route::get('/lihat', function () {
-    return Inertia::render('LihatProdukAdmin');
-});
-
-Route::get('/tambah-produk', function () {
-    return Inertia::render('LihatProdukAdmin', [
-        'modal' => 'TambahProduk', // dikirim ke layout
-    ]);
-});
-Route::get('/edit-produk', function () {
-   return Inertia::render('LihatProdukAdmin', [
-        'modal' => 'Edit', // dikirim ke layout
-    ]);
-});
-
-
+require __DIR__.'/auth.php';

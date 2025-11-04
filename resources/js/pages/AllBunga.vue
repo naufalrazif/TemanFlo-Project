@@ -13,75 +13,44 @@
       <!-- Grid produk -->
       <div class="grid grid-cols-3 gap-10">
         <div
-          v-for="(product, index) in products"
-          :key="index"
+          v-for ="produk in props.produks" :key="produk.id"
           class="flex flex-col items-center text-center"
         >
-          <img
-            :src="product.image"
-            alt="buket"
-            class="w-56 h-64 object-cover rounded-xl shadow-md mb-3 transition-transform duration-300 hover:scale-105 hover:shadow-xl"
+                  <img
+            v-if="produk.foto_url"
+            :src="produk.foto_url"
+            alt="Foto Produk"
+            class="w-16 h-16 object-cover rounded-md border"
           />
           <h2 class="text-sm font-semibold text-gray-800">
-            {{ product.name }}
+            {{ produk.nama }}
           </h2>
-          <p class="text-sm text-gray-600">{{ product.price }}</p>
+          <p class="text-sm text-gray-600">{{ produk.harga }}</p>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import Sidebar from "@/Components/Sidebar.vue";
 
-const products = [
-  {
-    name: "Buket Mawar Pink",
-    price: "Rp 35.000",
-    image: "/assets/bouquet-pink.jpg",
-  },
-  {
-    name: "Buket Mawar Tosca",
-    price: "Rp 35.000",
-    image: "/assets/bouquet-tosca.jpg",
-  },
-  {
-    name: "Buket Mawar Merah",
-    price: "Rp 35.000",
-    image: "/assets/bouquet-merah.jpg",
-  },
-  {
-    name: "Buket Mawar Hitam",
-    price: "Rp 35.000",
-    image: "/assets/bouquet-hitam.jpg",
-  },
-  {
-    name: "Buket Mawar Putih",
-    price: "Rp 35.000",
-    image: "/assets/bouquet-putih.jpg",
-  },
-  {
-    name: "Buket Mawar Biru",
-    price: "Rp 35.000",
-    image: "/assets/bouquet-biru.jpg",
-  },
-  {
-    name: "Buket Mawar Hijau",
-    price: "Rp 35.000",
-    image: "/assets/bouquet-hijau.jpg",
-  },
-  {
-    name: "Buket Mawar Ungu",
-    price: "Rp 35.000",
-    image: "/assets/bouquet-ungu.jpg",
-  },
-  {
-    name: "Buket Mawar Navy",
-    price: "Rp 35.000",
-    image: "/assets/bouquet-navy.jpg",
-  },
-];
+interface Produk {
+  id: number;
+  nama: string;
+  jenis_buket: string;
+  tema: string;
+  harga: number;
+  deskripsi: string;
+  foto: string;
+  foto_url?: string;
+}
+
+const props = defineProps({
+  produks: Array as () => Produk[]
+})
+
+
 </script>
 
 <style scoped>
