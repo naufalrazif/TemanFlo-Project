@@ -87,9 +87,9 @@
 
 <script setup>
 //import AppLayout from '@/Layouts/AppLayout.vue'
-import DropdownSort from '@/Components/Dropdown.vue'
-import ButtonBack from '@/Components/buttonBack.vue'
-import EditProduk from '@/Pages/Edit.vue' // <-- tambahkan ini
+import DropdownSort from '@/components/Dropdown.vue'
+import ButtonBack from '@/components/buttonBack.vue'
+import EditProduk from '@/pages/Edit.vue' // <-- tambahkan ini
 import { ref } from 'vue'
 import { router } from '@inertiajs/vue3'
 

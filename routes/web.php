@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProdukController;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 //route melihat daftar produk
 Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');

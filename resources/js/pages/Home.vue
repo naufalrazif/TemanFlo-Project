@@ -101,7 +101,7 @@
 
 <script setup>
 import bgLHome from "@/../assets/bgHome.jpg";
-import ButtonLihatSemua from "@/Components/ButtonLihatSemua.vue";
+import ButtonLihatSemua from "@/components/buttonLihatSemua.vue";
 const bouquetRangkaian = [
   { name: "Buket Mawar Merah", desc: "Indah dan elegan.", image: "/images/buket1.jpg" },
   { name: "Buket Putih", desc: "Kesederhanaan yang memikat.", image: "/images/buket2.jpg" },
