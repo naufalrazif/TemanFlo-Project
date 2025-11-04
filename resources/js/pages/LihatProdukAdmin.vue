@@ -100,7 +100,7 @@ const products = ref([
 
 const openTambahProduk = () => {
   router.visit('/tambah-produk', {
-    preserveState: true, // supaya halaman sebelumnya tetap
+    preserveState: true, 
   })
 }
 
@@ -112,7 +112,7 @@ const editProduk = (item) => {
   // kirim data produk yang mau diedit ke halaman edit-produk
   router.visit('/edit-produk', {
     preserveState: true,
-    data: item, // data dikirim ke halaman edit
+    data: item, 
   })
 }
 

@@ -1,10 +1,10 @@
 <template>
-  <footer class="bg-[#6B5B58] text-white py-12 font-[Poppins]">
+  <footer class="bg-[#6B5B58] text-white py-12 w-full min-h-screen font-[Poppins]">
     <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
       <!-- Kiri: Info -->
       <div>
         <h3 class="font-semibold text-lg mb-2">About Us</h3>
-        <p class="text-sm text-[#f2f2f2] mb-4 leading-relaxed">
+        <p class="text-3xxl text-[#f2f2f2] mb-4 leading-relaxed">
           Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
           the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
           type and scrambled it to make a type specimen book. It has survived not only five centuries, but
@@ -48,13 +48,7 @@
 
     <!-- Bawah: Payment + Nama -->
     <div class="mt-10 text-center">
-      <p class="text-sm mb-4 text-[#f2f2f2]">We Accept</p>
-      <div class="flex justify-center gap-6 mb-6">
-        <div class="w-12 h-12 bg-[#F2CFC5] rounded-xl"></div>
-        <div class="w-12 h-12 bg-[#F2CFC5] rounded-xl"></div>
-        <div class="w-12 h-12 bg-[#F2CFC5] rounded-xl"></div>
-        <div class="w-12 h-12 bg-[#F2CFC5] rounded-xl"></div>
-      </div>
+      
       <p class="text-[#f7f3f2] text-2xl italic font-[Dancing Script]">Ratu Florist Klaten</p>
     </div>
   </footer>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ButtonBack from './components/buttonBack.vue';
+import buttonBack from '@/components/buttonBack.vue';
 
 </script>
 

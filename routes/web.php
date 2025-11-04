@@ -57,4 +57,11 @@ Route::get('/custom-order', function () {
    return Inertia::render('CustomOrder');
 });
 
+Route::get('/payment', function () {
+   return Inertia::render('Payment');
+});
+
+Route::get('/payment-custom', function () {
+   return Inertia::render('PaymentCustom');
+});
 
