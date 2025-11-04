@@ -16,18 +16,29 @@
     <!-- Bouquet Category Section -->
     <section class="py-16 bg-[#fce1d7] h-[720px] text-center">
       <h2 class="text-3xl font-[Rochester] font-semibold mb-8">Buket Bunga</h2>
-      <p class="text-xl font-light px-5 mb-5">Keindahan sejati ada pada detail. Kami menghadirkan rangkaian buket bunga dengan sentuhan seni dan keanggunan alami, dirancang untuk memperindah setiap perayaan hidupmu. Baik untuk hadiah ulang tahun, ucapan terima kasih, maupun perayaan istimewa.</p>
+      <p class="text-xl font-light px-5 mb-5">
+        Keindahan sejati ada pada detail. Kami menghadirkan rangkaian buket bunga dengan sentuhan seni dan keanggunan alami, 
+        dirancang untuk memperindah setiap perayaan hidupmu. Baik untuk hadiah ulang tahun, ucapan terima kasih, maupun perayaan istimewa.
+      </p>
+
       <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto px-6">
+        <!-- filter sesuai jenis_buket -->
         <div
-          v-for="(item, index) in bouquetRangkaian"
-          :key="index"
+          v-for="(item, index) in produks.filter(p => p.jenis_buket === 'buket_bunga')"
+          :key="item.id"
           class="bg-white rounded-xl shadow-md hover:shadow-lg p-4"
         >
-          <img :src="item.image" alt="buket" class="rounded-md w-full h-56 object-cover mb-4" />
-          <h3 class="text-lg font-bold mb-2">{{ item.name }}</h3>
-          <p class="text-sm mb-3">{{ item.desc }}</p>
+          <!-- pastikan foto_url ada di controller/model -->
+          <img
+            :src="item.foto_url"
+            alt="buket"
+            class="rounded-md w-full h-56 object-cover mb-4"
+          />
+          <h3 class="text-lg font-bold mb-2">{{ item.nama }}</h3>
+          <p class="text-sm text-gray-600 mb-3">Rp {{ item.harga.toLocaleString('id-ID') }}</p>
         </div>
       </div>
+
       <!-- Tombol Reusable -->
     <div class="w-full flex justify-center mt-15">
       <ButtonLihatSemua @click="lihatSemuaProduk" />
@@ -40,13 +51,18 @@
       <p class="text-xl font-light px-5 mb-5">Ratu Florist menghadirkan inovasi unik dalam bentuk buket snack, kombinasi sempurna antara kelezatan dan keindahan. Dengan desain kreatif dan bahan premium, setiap buket kami siap menjadikan setiap momen istimewa terasa lebih berwarna dan berkesan.</p>
       <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto px-6">
         <div
-          v-for="(item, index) in bouquetSnack"
-          :key="index"
-          class="bg-[#fefefe] rounded-xl shadow-md hover:shadow-lg p-4"
+          v-for="(item, index) in produks.filter(p => p.jenis_buket === 'buket_snack')"
+          :key="item.id"
+          class="bg-white rounded-xl shadow-md hover:shadow-lg p-4"
         >
-          <img :src="item.image" alt="buket" class="rounded-md w-full h-56 object-cover mb-4" />
-          <h3 class="text-lg font-bold mb-2">{{ item.name }}</h3>
-          <p class="text-sm mb-3">{{ item.desc }}</p>
+          <!-- pastikan foto_url ada di controller/model -->
+          <img
+            :src="item.foto_url"
+            alt="buket"
+            class="rounded-md w-full h-56 object-cover mb-4"
+          />
+          <h3 class="text-lg font-bold mb-2">{{ item.nama }}</h3>
+          <p class="text-sm text-gray-600 mb-3">Rp {{ item.harga.toLocaleString('id-ID') }}</p>
         </div>
       </div>
       <!-- Tombol Reusable -->
@@ -61,13 +77,18 @@
       <p class="text-xl font-light px-5 mb-5">Buket boneka bukan sekadar hadiah, tapi bentuk perhatian yang lembut dan penuh kasih. Setiap boneka kecil di dalamnya membawa pesan kehangatan, rasa sayang, dan kebahagiaan yang tulus. Kami merangkainya dengan cinta, agar setiap orang yang menerimanya bisa merasakan keindahan dan ketulusan dari hati ke hati.</p>
       <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto px-6">
         <div
-          v-for="(item, index) in bouquetUang"
-          :key="index"
+          v-for="(item, index) in produks.filter(p => p.jenis_buket === 'buket_boneka')"
+          :key="item.id"
           class="bg-white rounded-xl shadow-md hover:shadow-lg p-4"
         >
-          <img :src="item.image" alt="buket" class="rounded-md w-full h-56 object-cover mb-4" />
-          <h3 class="text-lg font-bold mb-2">{{ item.name }}</h3>
-          <p class="text-sm mb-3">{{ item.desc }}</p>
+          <!-- pastikan foto_url ada di controller/model -->
+          <img
+            :src="item.foto_url"
+            alt="buket"
+            class="rounded-md w-full h-56 object-cover mb-4"
+          />
+          <h3 class="text-lg font-bold mb-2">{{ item.nama }}</h3>
+          <p class="text-sm text-gray-600 mb-3">Rp {{ item.harga.toLocaleString('id-ID') }}</p>
         </div>
       </div>
       <!-- Tombol Reusable -->
@@ -86,7 +107,11 @@
           :key="index"
           class="bg-[#fefefe] rounded-xl shadow-md hover:shadow-lg p-4"
         >
-          <img :src="item.image" alt="buket" class="rounded-md w-full h-56 object-cover mb-4" />
+          <img
+          :src="item.foto_url"
+          alt="buket"
+          class="rounded-md w-full h-56 object-cover mb-4"
+        />
           <h3 class="text-lg font-bold mb-2">{{ item.name }}</h3>
           <p class="text-sm mb-3">{{ item.desc }}</p>
         </div>
@@ -99,30 +124,23 @@
   </div>
 </template>
 
-<script setup>
-import bgLHome from "@/../assets/bgHome.jpg";
-import ButtonLihatSemua from "@/Components/ButtonLihatSemua.vue";
-const bouquetRangkaian = [
-  { name: "Buket Mawar Merah", desc: "Indah dan elegan.", image: "/images/buket1.jpg" },
-  { name: "Buket Putih", desc: "Kesederhanaan yang memikat.", image: "/images/buket2.jpg" },
-  { name: "Buket Merah Muda", desc: "Lembut dan manis.", image: "/images/buket3.jpg" },
-];
+<script setup lang="ts">
+import bgHome from "@/assets/bgHome.jpg";
+import ButtonLihatSemua from "@/components/buttonLihatSemua.vue";
 
-const bouquetSnack = [
-  { name: "Snack Choco", desc: "Cocok untuk hadiah teman.", image: "/images/snack1.jpg" },
-  { name: "Snack Mix", desc: "Campuran manis & gurih.", image: "/images/snack2.jpg" },
-  { name: "Snack Premium", desc: "Tampil elegan dan berkelas.", image: "/images/snack3.jpg" },
-];
+interface Produk {
+  id: number;
+  nama: string;
+  jenis_buket: string;
+  tema: string;
+  harga: number;
+  deskripsi: string;
+  foto: string;
+  foto_url?: string;
+}
 
-const bouquetUang = [
-  { name: "Money Bouquet Red", desc: "Simbol kemewahan dan cinta.", image: "/images/uang1.jpg" },
-  { name: "Money Bouquet Silver", desc: "Mewah dan berkilau.", image: "/images/uang2.jpg" },
-  { name: "Money Bouquet Blue", desc: "Tenang dan berkelas.", image: "/images/uang3.jpg" },
-];
+const props = defineProps({
+  produks: Array as () => Produk[]
+})
 
-const customBuket = [
-  { name: "Custom Elegan", desc: "Sesuai keinginanmu.", image: "/images/custom1.jpg" },
-  { name: "Custom Coklat", desc: "Manis dan romantis.", image: "/images/custom2.jpg" },
-  { name: "Custom Snack", desc: "Unik dan seru.", image: "/images/custom3.jpg" },
-];
 </script>
