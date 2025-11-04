@@ -71,7 +71,8 @@
 <script setup>
 import { reactive } from "vue";
 import { router } from "@inertiajs/vue3";
-import bgLogin from "@/../assets/bgLogin.jpg";
+import bgLogin from "../assets/bgLogin.jpg";
+
 
 const form = reactive({
   email: "",

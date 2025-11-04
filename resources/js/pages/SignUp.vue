@@ -69,7 +69,8 @@
 
 <script setup>
 import { ref } from "vue";
-import bgLogin from "@/../assets/bgLogin.jpg";
+import bgLogin from "../assets/bgLogin.jpg";
+
 
 const email = ref("");
 const password = ref("");

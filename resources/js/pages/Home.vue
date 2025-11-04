@@ -29,8 +29,8 @@
         </div>
       </div>
       <!-- Tombol Reusable -->
-    <div class="w-full flex justify-center mt-15">
-      <ButtonLihatSemua @click="lihatSemuaProduk" />
+      <div class="w-full flex justify-center mt-15">
+        <ButtonLihatSemua @click="lihatSemuaProduk" />
       </div>
     </section>
 
@@ -50,8 +50,8 @@
         </div>
       </div>
       <!-- Tombol Reusable -->
-    <div class="w-full flex justify-center mt-15">
-      <ButtonLihatSemua @click="lihatSemuaProduk" />
+      <div class="w-full flex justify-center mt-15">
+        <ButtonLihatSemua @click="lihatSemuaProduk" />
       </div>
     </section>
 
@@ -71,8 +71,8 @@
         </div>
       </div>
       <!-- Tombol Reusable -->
-    <div class="w-full flex justify-center mt-15">
-      <ButtonLihatSemua @click="lihatSemuaProduk" />
+      <div class="w-full flex justify-center mt-15">
+        <ButtonLihatSemua @click="lihatSemuaProduk" />
       </div>
     </section>
 
@@ -92,8 +92,8 @@
         </div>
       </div>
       <!-- Tombol Reusable -->
-    <div class="w-full flex justify-center mt-15">
-      <ButtonLihatSemua @click="lihatSemuaProduk" />
+      <div class="w-full flex justify-center mt-15">
+        <ButtonLihatSemua @click="lihatSemuaProduk" />
       </div>
     </section>
   </div>
