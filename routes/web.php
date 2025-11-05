@@ -1,5 +1,4 @@
 <?php
-
 use App\Http\Controllers\ProdukController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -20,7 +19,7 @@ Route::put('/produk/{id}', [ProdukController::class, 'update'])->name('produk.up
 
 
 //Lailla mulai disini
-Route::get('/', function () {
+Route::get('/home', function () {
     return Inertia::render('Home');
 });
 Route::get('/signup', function () {
@@ -63,5 +62,9 @@ Route::get('/payment', function () {
 
 Route::get('/payment-custom', function () {
    return Inertia::render('PaymentCustom');
+});
+
+Route::get('/TnC', function () {
+   return Inertia::render('T&C');
 });
 

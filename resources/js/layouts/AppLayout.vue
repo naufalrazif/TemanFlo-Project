@@ -25,7 +25,7 @@ withDefaults(defineProps<Props>(), {
     <!-- Modal -->
     <div
       v-if="modalComponent"
-      class="fixed inset-0 bg-black/30 flex justify-center items-center z-50"
+      class="fixed inset-0  flex justify-center items-center z-50"
     >
       <component :is="modalComponent" @close="closeModal" class="z-60" />
     </div>

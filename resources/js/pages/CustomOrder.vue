@@ -3,7 +3,7 @@
     <div class="max-w-3xl mx-auto px-5 relative">
       <!-- Tombol kembali -->
       <div class="mb-2">
-          <ButtonBack />
+          <buttonBack/>
       </div>  
       
       <!--judul dan desk-->
@@ -63,12 +63,11 @@
           />
         </div>
 
-        <button
-          type="submit"
-          class="self-end font-2xl text-white px-6 py-2 rounded-xl bg-[#53776c] hover:bg-[#31463f] transition"
-        >
+        <a
+          href="/payment-custom"
+          class="self-end inline-block font-2xl text-white px-6 py-2 rounded-xl bg-[#53776c] hover:bg-[#31463f] transition">
           Pesan Sekarang
-        </button>
+        </a>
       </form>
     </div>
   </div>
@@ -92,14 +91,4 @@ function filterAngka(event) {
     form.nohp = target.value.replace(/[^0-9]/g, '');
   }
 }
-
-const submitForm = () => {
-  console.log("Data form:", form);
-  alert(`Terima kasih ${form.nama}! Kami akan menghubungi ke nomor ${form.nohp} untuk konfirmasi.`);
-
-  form.nama = "";
-  form.nohp = "";
-  form.rincian = "";
-  form.uangmuka = "";
-};
 </script>

@@ -1,5 +1,8 @@
 <template>
-  <div class="min-h-screen bg-[#f8cfc1] flex flex-col items-center py-10 px-6 md:px-20">
+  <div class="min-h-screen  bg-[#f1d1c2] font-[Poppins] text-[#000000]">
+    <div>
+      <Navbar1 />
+    </div>
     <!-- Judul -->
     <h1 class="text-4xl text-[#3b2a29] font-[Rochester] mb-10 text-center">Ordering Guide</h1>
 
@@ -53,14 +56,16 @@
       </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="mt-12 text-[#3b2a29] font-[Rochester] text-4xl text-center">
-      Ratu Florist Klaten
-    </footer>
+    <section class="max-w-3xl mx-auto space-y-8 px-4 pb-10">
+        <h1 class="text-center font-[Rochester] text-4xl mt-8">
+          <a href="/home" class="text-inherit no-underline hover:text-[#53776c] transition">
+            Ratu Florist Klaten
+          </a>
+        </h1>
+      </section>
   </div>
 </template>
 
 <script setup>
-//import bunga1 from '../assets/bunga1.jpg'
-
+ import Navbar1 from '@/components/Navbar1.vue';
 </script>

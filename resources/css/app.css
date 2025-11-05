@@ -171,3 +171,21 @@
         @apply bg-background text-foreground;
     }
 }
+
+/* Hilangkan spinner di Chrome, Safari */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Hilangkan spinner di Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+@layer components {
+  .input {
+    @apply w-full px-4 py-2 mb-2 border border-black bg-white rounded-xl focus:outline-none;
+  }
+}
