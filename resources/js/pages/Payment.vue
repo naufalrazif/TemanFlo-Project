@@ -1,131 +1,135 @@
+<script setup lang="ts">
+import buttonBack from "./components/buttonBack.vue";
+
+// Import gambar
+import bucket from "@/assets/bucket.jpg";
+import bucket1 from "@/assets/bucket1.jpg";
+import bucket2 from "@/assets/bucket2.jpg";
+
+// Biar di template bisa dipakai
+const bunga = bucket;
+const bunga1 = bucket1;
+const bunga2 = bucket2;
+</script>
+
 <template>
-  <div class="min-h-screen bg-gray-100 flex items-center justify-center py-10">
-    <!-- Container utama -->
-    <div class="bg-white rounded-2xl shadow-xl overflow-hidden grid grid-cols-1 md:grid-cols-2 w-full max-w-5xl">
+  <div class="min-h-screen font-[Poppins] flex flex-col md:flex-row bg-white">
 
-      <!-- LEFT -->
-      <div class="bg-[#e6bbaa] p-8 flex flex-col gap-4">
-        <h2 class="text-lg font-semibold">Contact Information</h2>
-        <input type="text" placeholder="Email" class="input" />
-        <input type="text" placeholder="Phone number" class="input" />
+    <!-- KIRI - FORM -->
+    <div class="w-full md:w1/2 bg-[#e6bbaa] p-8 relative">
 
-        <div class="flex gap-3">
-          <input type="text" placeholder="First name" class="input w-full" />
-          <input type="text" placeholder="Last name" class="input w-full" />
-        </div>
+      <buttonBack class="mb-6" />
 
-        <h2 class="text-lg font-semibold mt-3">Alamat</h2>
+      <h2 class="text-lg font-semibold mb-2">Contact Information</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+        <input type="email" placeholder="email" class="input" />
+        <input type="number" placeholder="phone number" class="input" />
+        <input type="text" placeholder="first name" class="input" />
+        <input type="text" placeholder="last name" class="input" />
+      </div>
+
+      <h2 class="text-lg font-semibold mb-2">Alamat</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
         <input type="text" placeholder="Kota / Kecamatan" class="input" />
         <input type="text" placeholder="Kode Pos" class="input" />
-        <input type="text" placeholder="Detail Alamat (jalan, no. rumah)" class="input" />
-
-        <h2 class="text-lg font-semibold mt-3">Payment</h2>
-        <div class="space-y-2">
-          <label class="flex items-center gap-2">
-            <input type="radio" name="pay" class="accent-black" checked /> BRI
-          </label>
-          <label class="flex items-center gap-2">
-            <input type="radio" name="pay" class="accent-black" /> BCA
-          </label>
-          <label class="flex items-center gap-2">
-            <input type="radio" name="pay" class="accent-black" /> Mandiri
-          </label>
-        </div>
-
-        <button class="bg-[#577a63] text-white rounded-lg py-3 mt-5 hover:opacity-90">
-          Bayar Sekarang
-        </button>
+        <input type="text" placeholder="Detail Alamat (jalan, no. rumah)" class="input md:col-span-2" />
       </div>
 
-      <!-- RIGHT -->
-      <div class="bg-white p-8 border-l">
-        <table class="w-full text-sm font-semibold text-gray-700">
-          <thead>
-            <tr>
-              <th class="text-left pb-2">Produk</th>
-              <th class="text-right pb-2">Jumlah</th>
-            </tr>
-          </thead>
-        </table>
-
-        <!-- Produk dari cart -->
-        <div v-if="cart.length > 0" class="mt-4 space-y-4">
-          <div
-            v-for="(item, index) in cart"
-            :key="index"
-            class="flex justify-between items-center"
-          >
-            <div class="flex items-center gap-3">
-              <img :src="item.img" class="w-20 h-20 rounded object-cover" />
-              <div>
-                <p class="font-medium">{{ item.name }}</p>
-                <p class="text-sm">Rp {{ formatNumber(item.price) }}</p>
-              </div>
-            </div>
-            <p>{{ item.qty }}</p>
-          </div>
-        </div>
-
-        <!-- Kalau cart kosong -->
-        <div v-else class="text-center text-gray-500 mt-10">
-          Keranjang kosong 😔
-        </div>
-
-        <!-- Ringkasan -->
-        <div class="border-t mt-6 pt-4 text-sm space-y-1" v-if="cart.length > 0">
-          <div class="flex justify-between">
-            <p>Sub Total : {{ totalItems }} Item</p>
-            <p>Rp {{ formatNumber(totalPrice) }}</p>
-          </div>
-          <div class="flex justify-between">
-            <p>Shipping</p>
-            <p>Rp 10.000</p>
-          </div>
-          <div class="flex justify-between text-lg font-bold mt-2">
-            <p>Total</p>
-            <p>Rp {{ formatNumber(totalPrice + 10000) }}</p>
-          </div>
-        </div>
+      <h2 class="text-lg font-semibold mb-2">Payment</h2>
+      <div class="flex flex-col bg-white border border-black rounded-xl overflow-hidden">
+        <label class="payment-option">
+          <input type="radio" name="bank" checked /> BRI
+        </label>
+        <label class="payment-option border-t border-black">
+          <input type="radio" name="bank" /> BCA
+        </label>
+        <label class="payment-option border-t border-black">
+          <input type="radio" name="bank" /> Mandiri
+        </label>
       </div>
+
+      <button class="w-full mt-8 text-white py-3 rounded-xl bg-[#53776c] hover:bg-[#31463f] transition">
+        Bayar Sekarang
+      </button>
+
     </div>
+
+    <!-- KANAN - RINCIAN -->
+    <div class="w-full md:w2/2 bg-white p-8 border-l border-black flex flex-col">
+
+      <table class="w-full text-sm mb-6">
+        <thead class="border-b border-black pb-2">
+          <tr class="text-left">
+            <th>Produk</th>
+            <th class="text-right">Jumlah</th>
+          </tr>
+        </thead>
+      </table>
+
+      <div class="space-y-4 mb-6">
+        <!-- ITEM 1 -->
+        <div class="flex justify-between items-center">
+          <div class="flex items-center gap-3">
+            <img :src="bunga" class="w-16 h-16 rounded-md object-cover" />
+            <div>
+              <p>Buket Bunga</p>
+              <p class="text-sm text-gray-600">RP. 70.000</p>
+            </div>
+          </div>
+          <span>1</span>
+        </div>
+
+        <!-- ITEM 2 -->
+        <div class="flex justify-between items-center">
+          <div class="flex items-center gap-3">
+            <img :src="bunga1" class="w-16 h-16 rounded-md object-cover" />
+            <div>
+              <p>Buket Bunga</p>
+              <p class="text-sm text-gray-600">RP. 70.000</p>
+            </div>
+          </div>
+          <span>1</span>
+        </div>
+
+        <!-- ITEM 3 -->
+        <div class="flex justify-between items-center">
+          <div class="flex items-center gap-3">
+            <img :src="bunga2" class="w-16 h-16 rounded-md object-cover" />
+            <div>
+              <p>Buket Bunga</p>
+              <p class="text-sm text-gray-600">RP. 70.000</p>
+            </div>
+          </div>
+          <span>1</span>
+        </div>
+      </div>
+
+      <div class="mt-auto space-y-1 text-base">
+        <div class="flex justify-between">
+          <span>Sub Total : 3 Item</span>
+          <span>Rp 210.000</span>
+        </div>
+        <div class="flex justify-between">
+          <span>Shipping</span>
+          <span>Rp 10.000</span>
+        </div>
+        <div class="flex justify-between font-semibold border-t pt-4">
+          <span>Total</span>
+          <span>Rp 230.000</span>
+        </div>
+      </div>
+
+    </div>
+
   </div>
 </template>
 
-<script>
-export default {
-  name: "CheckoutPage",
-  data() {
-    return {
-      cart: [], // ambil dari localStorage
-    };
-  },
-  computed: {
-    totalPrice() {
-      return this.cart.reduce((total, item) => total + item.price * item.qty, 0);
-    },
-    totalItems() {
-      return this.cart.reduce((total, item) => total + item.qty, 0);
-    },
-  },
-  mounted() {
-    const savedCart = localStorage.getItem("cart");
-    if (savedCart) {
-      this.cart = JSON.parse(savedCart);
-    } else {
-      // kalau cart kosong, redirect ke cart
-      this.$router.push("/cart");
-    }
-  },
-  methods: {
-    formatNumber(num) {
-      return num.toLocaleString("id-ID");
-    },
-  },
-};
-</script>
-
-<style scoped>
+<style scoped lang="postcss">
 .input {
-  @apply w-full bg-white rounded-lg px-3 py-2 border border-gray-400;
+  @apply w-full px-4 py-2 border border-black bg-white rounded-xl focus:outline-none;
+}
+
+.payment-option {
+  @apply flex items-center gap-2 px-4 py-3 text-base cursor-pointer;
 }
 </style>

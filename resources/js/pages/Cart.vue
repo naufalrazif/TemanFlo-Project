@@ -3,7 +3,7 @@
 
     <!-- Header -->
     <header class="flex items-center justify-between px-10 py-5 border-b bg-white">
-      <img src="/src/assets/logo.jpg" alt="Logo" class="h-14" />
+      <img src="../assets/logo.jpg" alt="Logo" class="h-14" />
 
       <nav class="flex items-center gap-8 font-medium">
         <a href="#">Home</a>
@@ -74,9 +74,10 @@
 </template>
 
 <script>
-import bucket from "/src/assets/bucket.jpg";
-import bucket1 from "/src/assets/bucket1.jpg";
-import bucket2 from "/src/assets/bucket2.jpg";
+import bucket from "../assets/bucket.jpg";
+import bucket1 from "../assets/bucket1.jpg";
+import bucket2 from "../assets/bucket2.jpg";
+
 
 export default {
   name: "CartPage",
