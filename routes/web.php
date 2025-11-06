@@ -1,7 +1,7 @@
 <?php
-
 use App\Http\Controllers\ProdukController;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 //route melihat daftar produk
 Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
@@ -18,3 +18,52 @@ Route::get('/produk/{id}/edit', [ProdukController::class, 'edit'])->name('produk
 Route::put('/produk/{id}', [ProdukController::class, 'update'])->name('produk.update');
 
 
+//Lailla mulai disini
+Route::get('/home', function () {
+    return Inertia::render('Home');
+});
+Route::get('/signup', function () {
+    return Inertia::render('SignUp');
+});
+Route::get('/login', function () {
+    return Inertia::render('Login');
+});
+Route::get('/guide', function () {
+    return Inertia::render('OrderGuide');
+});
+Route::get('/footer', function () {
+    return Inertia::render('About');
+});
+Route::get('/allbunga', function () {
+    return Inertia::render('AllBunga');
+});
+Route::get('/lihat', function () {
+    return Inertia::render('LihatProdukAdmin');
+});
+
+Route::get('/tambah-produk', function () {
+    return Inertia::render('LihatProdukAdmin', [
+        'modal' => 'TambahProduk', // dikirim ke layout
+    ]);
+});
+Route::get('/edit-produk', function () {
+   return Inertia::render('LihatProdukAdmin', [
+        'modal' => 'Edit', // dikirim ke layout
+    ]);
+});
+
+Route::get('/custom-order', function () {
+   return Inertia::render('CustomOrder');
+});
+
+Route::get('/payment', function () {
+   return Inertia::render('Payment');
+});
+
+Route::get('/payment-custom', function () {
+   return Inertia::render('PaymentCustom');
+});
+
+Route::get('/TnC', function () {
+   return Inertia::render('T&C');
+});
