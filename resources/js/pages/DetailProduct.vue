@@ -79,8 +79,8 @@
 <script setup>
 import { ref } from 'vue'
 import { router } from '@inertiajs/vue3'
-import ButtonLihatSemua from './components/buttonLihatSemua.vue'
-import ButtonBack from './components/buttonBack.vue'
+import ButtonLihatSemua from '@/components/buttonLihatSemua.vue'
+import ButtonBack from '@/components/buttonBack.vue'
 
 const qty = ref(1)
 

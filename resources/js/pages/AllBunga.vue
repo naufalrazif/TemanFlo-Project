@@ -1,7 +1,7 @@
 <template>
   <div class="flex min-h-screen bg-[#FBF5F1] font-poppins">
     <!-- Sidebar -->
-    <Sidebar />
+    <Side />
 
     <!-- Konten utama -->
     <div class="flex-1 p-10 overflow-y-auto">
@@ -33,7 +33,7 @@
 </template>
 
 <script setup>
-import Sidebar from "@/Components/Sidebar.vue";
+import Side from "@/components/Side.vue";
 
 const products = [
   {
