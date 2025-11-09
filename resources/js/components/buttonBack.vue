@@ -19,4 +19,5 @@ import { router } from '@inertiajs/vue3'
 const goBack = () => {
   window.history.back()
 }
+
 </script>

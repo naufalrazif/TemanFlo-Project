@@ -86,9 +86,9 @@
 </template>
 
 <script setup>
-import AppLayout from '@/Layouts/AppLayout.vue'
+import AppLayout from '@/layouts/AppLayout.vue'
 import DropdownSort from '@/Components/Dropdown.vue'
-import ButtonBack from '@/Components/buttonBack.vue'
+import ButtonBack from '@/components/ButtonBack.vue'
 import EditProduk from '@/Pages/Edit.vue' // <-- tambahkan ini
 import { ref } from 'vue'
 import { router } from '@inertiajs/vue3'

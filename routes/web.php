@@ -5,18 +5,12 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ProdukController;
-use App\Http\Controllers\LihatController;
+use App\Http\Controllers\DashboardController;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
 
-Route::get('/dashboard', [LihatController::class, 'index'])
+
+
+Route::get('/', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
@@ -40,4 +34,7 @@ Route::delete('/produk/{id}', [ProdukController::class, 'destroy'])->name('produ
 Route::get('/produk/{id}/edit', [ProdukController::class, 'edit'])->name('produk.edit');
 Route::put('/produk/{id}', [ProdukController::class, 'update'])->name('produk.update');
 
+
+//lihat detail produk
+Route::get('/buket/{id}', [DashboardController::class, 'show'])->name('produk.detail');
 require __DIR__.'/auth.php';
