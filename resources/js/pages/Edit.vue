@@ -4,7 +4,7 @@
   >
     <!-- Tombol X -->
     <button
-      @click="closeModal"
+      @click="$emit('close')"
       class="absolute top-5 right-6 text-black text-2xl font-light hover:text-gray-700"
     >
       ×
@@ -102,7 +102,7 @@
       <div class="flex justify-end mt-6 gap-3">
         <button
           type="button"
-          @click="closeModal"
+          @click="$emit('close')"
           class="bg-white text-gray-800 border border-gray-300 px-5 py-2 rounded-lg hover:bg-gray-100 transition"
         >
           Batal

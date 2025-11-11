@@ -3,10 +3,7 @@
     class="bg-[#F3D5C0] rounded-xl shadow-lg w-[550px] max-w-[90%] mx-auto p-8 relative z-60"
   >
     <!-- Tombol X -->
-    <button
-      @click="closeModal"
-      class="absolute top-5 right-6 text-black text-2xl font-light hover:text-gray-700"
-    >
+    <button @click="$emit('close')" class="absolute top-3 right-3 text-gray-600 hover:text-black text-xl">
       ×
     </button>
 

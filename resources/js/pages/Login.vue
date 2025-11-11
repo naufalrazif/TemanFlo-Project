@@ -3,8 +3,12 @@
     class="min-h-screen flex items-center justify-center bg-cover bg-center font-[Poppins]"
     :style="{ backgroundImage: `url(${bgLogin})` }"
   >
+  <div>
+    <img src="/assets/logo2.png" alt="logo" class="flex justify-center w-auto h-40  absolute top-10 left-1/2 transform -translate-x-1/2" />
+
+  </div>
     <div
-      class="bg-[#73615F]/75 rounded-[30px] shadow-lg p-10 w-[420px] text-center text-white"
+      class="bg-[#73615F]/75 rounded-[30px] shadow-lg p-10 w-[420px] text-center text-white mt-30"
     >
       <!-- Judul -->
       <h1 class="text-3xl font-bold mb-2 tracking-wide">LOGIN</h1>
@@ -71,7 +75,8 @@
 <script setup>
 import { reactive } from "vue";
 import { router } from "@inertiajs/vue3";
-import bgLogin from "@/../assets/bgLogin.jpg";
+import bgLogin from "../assets/bgLogin.jpg";
+
 
 const form = reactive({
   email: "",

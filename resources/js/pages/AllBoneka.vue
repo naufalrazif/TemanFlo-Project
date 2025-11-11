@@ -7,7 +7,7 @@
     <div class="flex-1 p-10 overflow-y-auto">
       <!-- Judul -->
       <h1 class="text-4xl font-[Rochester]  text-gray-800 mb-10">
-        All Product Buket Bunga
+        All Product Buket Boneka
       </h1>
 
       <!-- Grid produk -->
@@ -37,47 +37,47 @@ import Side from "@/components/Side.vue";
 
 const products = [
   {
-    name: "Buket Mawar Pink",
+    name: "Buket Boneka Pink",
     price: "Rp 35.000",
     image: "/assets/bouquet-pink.jpg",
   },
   {
-    name: "Buket Mawar Tosca",
+    name: "Buket Boneka Tosca",
     price: "Rp 35.000",
     image: "/assets/bouquet-tosca.jpg",
   },
   {
-    name: "Buket Mawar Merah",
+    name: "Buket Boneka Merah",
     price: "Rp 35.000",
     image: "/assets/bouquet-merah.jpg",
   },
   {
-    name: "Buket Mawar Hitam",
+    name: "Buket Boneka Hitam",
     price: "Rp 35.000",
     image: "/assets/bouquet-hitam.jpg",
   },
   {
-    name: "Buket Mawar Putih",
+    name: "Buket Boneka Putih",
     price: "Rp 35.000",
     image: "/assets/bouquet-putih.jpg",
   },
   {
-    name: "Buket Mawar Biru",
+    name: "Buket Boneka Biru",
     price: "Rp 35.000",
     image: "/assets/bouquet-biru.jpg",
   },
   {
-    name: "Buket Mawar Hijau",
+    name: "Buket Boneka Hijau",
     price: "Rp 35.000",
     image: "/assets/bouquet-hijau.jpg",
   },
   {
-    name: "Buket Mawar Ungu",
+    name: "Buket Boneka Ungu",
     price: "Rp 35.000",
     image: "/assets/bouquet-ungu.jpg",
   },
   {
-    name: "Buket Mawar Navy",
+    name: "Buket Boneka Navy",
     price: "Rp 35.000",
     image: "/assets/bouquet-navy.jpg",
   },

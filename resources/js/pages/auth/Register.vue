@@ -1,15 +1,14 @@
 <script setup>
 import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/components/InputError.vue';
+import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
 const form = useForm({
-    nama: '',
+    name: '',
     email: '',
-    no_telp: '',
     password: '',
     password_confirmation: '',
 });
@@ -27,16 +26,16 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
-                <InputLabel for="nama" value="Nama" />
+                <InputLabel for="name" value="Name" />
 
                 <TextInput
-                    id="nama"
+                    id="name"
                     type="text"
                     class="mt-1 block w-full"
-                    v-model="form.nama"
+                    v-model="form.name"
                     required
                     autofocus
-                    autocomplete="nama"
+                    autocomplete="name"
                 />
 
                 <InputError class="mt-2" :message="form.errors.name" />
@@ -57,20 +56,6 @@ const submit = () => {
                 <InputError class="mt-2" :message="form.errors.email" />
             </div>
 
-            <div class="mt-4">
-                <InputLabel for="no_telp" value="no_telp" />
-
-                <TextInput
-                    id="no_telp"
-                    type="text"
-                    class="mt-1 block w-full"
-                    v-model="form.no_telp"
-                    required
-                    autocomplete="username"
-                />
-
-                <InputError class="mt-2" :message="form.errors.email" />
-            </div>
             <div class="mt-4">
                 <InputLabel for="password" value="Password" />
 

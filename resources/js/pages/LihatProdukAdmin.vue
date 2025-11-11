@@ -1,6 +1,10 @@
 <template>
   <AppLayout>
-    <div class="min-h-screen bg-[#F9F4F1] font-[Poppins]">
+    <!-- Background utama -->
+    <div
+      class="min-h-screen bg-[#F9F4F1] font-[Poppins] transition-all duration-300"
+      :class="{ 'blur-sm pointer-events-none': modal !== null }"
+    >
       <!-- Header Section -->
       <div class="bg-[#E6C7C0] h-[150px] px-10 py-8 flex justify-between items-start">
         <div class="flex items-center justify-center mb-8">
@@ -43,7 +47,7 @@
               <tr
                 v-for="(item, index) in products"
                 :key="index"
-                class="border-b border-gray-200 hover:bg-gray-50"
+                class="border bg-gray-50"
               >
                 <td class="py-3 px-4">{{ item.nama }}</td>
                 <td class="py-3 px-4">{{ item.jenis }}</td>
@@ -51,17 +55,14 @@
                 <td class="py-3 px-4">{{ item.size }}</td>
                 <td class="py-3 px-4">{{ item.harga }}</td>
                 <td class="py-3 px-4">
-                 <div class="flex items-center gap-3">
-                    <!-- Tombol Edit -->
+                  <div class="flex items-center gap-3">
                     <button
-                      @click="editProduk(item)"
+                      @click="openEditProduk(item)"
                       class="flex items-center gap-1 text-[#4B5E55] hover:text-[#2f3e36] font-semibold transition"
                     >
                       <i class="fa-solid fa-pen-to-square"></i>
                       Edit
                     </button>
-
-                    <!-- Tombol Hapus -->
                     <button
                       @click="hapusProduk(item)"
                       class="flex items-center gap-1 text-red-500 hover:text-red-700 font-semibold transition"
@@ -82,37 +83,73 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal Tambah Produk -->
+    <div
+      v-if="modal === 'TambahProduk'"
+      class="fixed inset-0 z-[9999] flex items-center justify-center"
+    >
+      <!-- lapisan hitam transparan -->
+      <div
+        class="absolute inset-0 bg-black/40"
+        @click="closeModal"
+      ></div>
+
+      <!-- konten modal -->
+      <div class="relative z-50">
+        <TambahProduk @close="closeModal" />
+      </div>
+    </div>
+
+    <!-- Modal Edit Produk -->
+    <div
+      v-if="modal === 'EditProduk'"
+      class="fixed inset-0 z-[9999] flex items-center justify-center"
+    >
+      <!-- lapisan hitam transparan -->
+      <div
+        class="absolute inset-0 bg-black/40"
+        @click="closeModal"
+      ></div>
+
+      <!-- konten modal -->
+      <div class="relative z-50">
+        <Edit @close="closeModal" :product="selectedProduct" />
+      </div>
+    </div>
   </AppLayout>
 </template>
 
 <script setup>
 import AppLayout from '@/layouts/AppLayout.vue'
-import DropdownSort from '@/Components/Dropdown.vue'
-import ButtonBack from '@/components/ButtonBack.vue'
-import EditProduk from '@/Pages/Edit.vue' // <-- tambahkan ini
+import DropdownSort from '@/components/Dropdown.vue'
+import ButtonBack from '@/components/buttonBack.vue'
+import TambahProduk from '@/pages/TambahProduk.vue'
+import Edit from '@/pages/Edit.vue'
 import { ref } from 'vue'
-import { router } from '@inertiajs/vue3'
+
+const modal = ref(null)
+const selectedProduct = ref(null)
 
 const products = ref([
-{ nama: 'Buket Mawar', jenis: 'Fresh Flower', tema: 'Romantis', size: 'Medium', harga: '150.000' }
+  { nama: 'Buket Mawar', jenis: 'Fresh Flower', tema: 'Romantis', size: 'Medium', harga: '150.000' },
 ])
 
 const openTambahProduk = () => {
-  router.visit('/tambah-produk', {
-    preserveState: true, // supaya halaman sebelumnya tetap
-  })
+  modal.value = 'TambahProduk'
+}
+
+const openEditProduk = (item) => {
+  selectedProduct.value = item
+  modal.value = 'EditProduk'
+}
+
+const closeModal = () => {
+  modal.value = null
 }
 
 const handleSort = (value) => {
   console.log('Urut berdasarkan:', value)
-}
-
-const editProduk = (item) => {
-  // kirim data produk yang mau diedit ke halaman edit-produk
-  router.visit('/edit-produk', {
-    preserveState: true,
-    data: item, // data dikirim ke halaman edit
-  })
 }
 
 const hapusProduk = (item) => {

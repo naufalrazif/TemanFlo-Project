@@ -6,7 +6,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 
-
 interface Produk {
   id: number;
   nama: string;
@@ -17,7 +16,7 @@ interface Produk {
   foto: string;
 }
 
-const props = defineProps<{ produk: Produk }>();
+const props = defineProps<{ produk: Produk }>()
 
 const form = useForm({
   nama: props.produk.nama,
@@ -30,7 +29,7 @@ const form = useForm({
 
 const handleSubmit = () => {
   form.put(`/produk/${props.produk.id}`, {
-    method: 'put', 
+    method: 'put', // penting! untuk Laravel baca sebagai PUT
     forceFormData: true,
     onSuccess: () => {
       form.reset('foto')
@@ -51,7 +50,6 @@ const handleFileChange = (event: Event) => {
 </script>
 
 <template>
-    <form @submit.prevent="handleSubmit">
     <div class="bg-[#f3cbb7] p-6 rounded-xl space-y-4">
     <h2 class="text-lg font-semibold">Tambah Produk</h2>
 
@@ -113,10 +111,9 @@ const handleFileChange = (event: Event) => {
     </div>
 
     <div class="flex justify-end">
-      <Button type="submit" class="bg-[#5c7b66] hover:bg-[#4e6958] text-white"  >
+      <Button class="bg-[#5c7b66] hover:bg-[#4e6958] text-white"  @click="handleSubmit">
         Submit
       </Button>
     </div>
   </div>
-  </form>   
 </template>

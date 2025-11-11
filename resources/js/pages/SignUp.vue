@@ -4,8 +4,12 @@
     :style="{ backgroundImage: `url(${bgLogin})` }"
   >
     <!-- Card -->
+     <div>
+    <img src="/assets/logo2.png" alt="logo" class="flex justify-center w-auto h-40  absolute top-10 left-1/2 transform -translate-x-1/2" />
+
+  </div>
     <div
-      class="bg-[#5D776C]/75 backdrop-blur-sm rounded-[25px] p-10 w-[400px] text-white text-center shadow-2xl"
+      class="bg-[#5D776C]/75 backdrop-blur-sm rounded-[25px] p-10 w-[400px] text-white text-center shadow-2xl mt-35"
     >
 
 
@@ -69,7 +73,8 @@
 
 <script setup>
 import { ref } from "vue";
-import bgLogin from "@/../assets/bgLogin.jpg";
+import bgLogin from "../assets/bgLogin.jpg";
+
 
 const email = ref("");
 const password = ref("");

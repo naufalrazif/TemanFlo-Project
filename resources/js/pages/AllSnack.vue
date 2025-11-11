@@ -7,7 +7,7 @@
     <div class="flex-1 p-10 overflow-y-auto">
       <!-- Judul -->
       <h1 class="text-4xl font-[Rochester]  text-gray-800 mb-10">
-        All Product Buket Bunga
+        All Product Buket Snack
       </h1>
 
       <!-- Grid produk -->
@@ -37,49 +37,34 @@ import Side from "@/components/Side.vue";
 
 const products = [
   {
-    name: "Buket Mawar Pink",
+    name: "Buket mix Pink",
     price: "Rp 35.000",
     image: "/assets/bouquet-pink.jpg",
   },
   {
-    name: "Buket Mawar Tosca",
+    name: "Buket Silverqueen",
     price: "Rp 35.000",
     image: "/assets/bouquet-tosca.jpg",
   },
   {
-    name: "Buket Mawar Merah",
+    name: "Buket Mix Pocky",
     price: "Rp 35.000",
     image: "/assets/bouquet-merah.jpg",
   },
   {
-    name: "Buket Mawar Hitam",
+    name: "Buket Mix Black",
     price: "Rp 35.000",
     image: "/assets/bouquet-hitam.jpg",
   },
   {
-    name: "Buket Mawar Putih",
+    name: "Buket Mix Ungu",
     price: "Rp 35.000",
     image: "/assets/bouquet-putih.jpg",
   },
   {
-    name: "Buket Mawar Biru",
+    name: "Buket Serba Biru",
     price: "Rp 35.000",
     image: "/assets/bouquet-biru.jpg",
-  },
-  {
-    name: "Buket Mawar Hijau",
-    price: "Rp 35.000",
-    image: "/assets/bouquet-hijau.jpg",
-  },
-  {
-    name: "Buket Mawar Ungu",
-    price: "Rp 35.000",
-    image: "/assets/bouquet-ungu.jpg",
-  },
-  {
-    name: "Buket Mawar Navy",
-    price: "Rp 35.000",
-    image: "/assets/bouquet-navy.jpg",
   },
 ];
 </script>
