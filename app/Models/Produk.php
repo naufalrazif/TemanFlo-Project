@@ -34,6 +34,8 @@ class Produk extends Model
         return $this->hasMany(item_keranjang::class);
     }
 
+    
+
 
 
 }

@@ -105,7 +105,19 @@ const decreaseQty = () => {
 }
 
 const addToCart = () => {
-  alert(`Produk ditambahkan ke keranjang sebanyak ${qty.value} item.`)
+  router.post('/keranjang/tambah', {
+    produk_id: props.produk.id,
+    jumlah: qty.value,
+  }, {
+    onSuccess: () => {
+      // pergilah ke keranjang tuan
+      router.visit('/keranjang')
+    },
+    onError: (errors) => {
+      console.error(errors)
+      alert('Gagal menambahkan produk ke keranjang.')
+    }
+  })
 }
 
 

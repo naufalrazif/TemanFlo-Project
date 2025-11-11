@@ -19,6 +19,8 @@ interface Produk {
 
 const props = defineProps<{ produk: Produk }>();
 
+console.log(props.produk);
+
 const form = useForm({
   nama: props.produk.nama,
   jenis_buket: props.produk.jenis_buket,

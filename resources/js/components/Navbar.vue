@@ -6,10 +6,10 @@
       <div class="flex items-center space-x-2 py-4 ml-5">
         <img src= "/assets/logo2.png" alt="Rania Flower Kitchen" class="h-20 w-auto " />
       </div>
-
+    
       <!-- Navigation -->
        <nav class="hidden md:flex space-x-8 text-base font-medium">
-        <a href="/home" class="hover:font-semibold">Home</a>
+        <a href="/" class="hover:font-semibold">Home</a>
         <a href ="/allbunga" class="hover:font-semibold">Katalog</a>
         <a href="/footer" class="hover:font-semibold">About Us</a>
       </nav>
@@ -35,5 +35,5 @@
 </template>
 
 <script setup>
-// No logic needed for static navbar, but you can add reactive state if needed later
+import logo from "@/assets/logo2.png";
 </script>

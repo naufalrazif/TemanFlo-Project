@@ -51,6 +51,7 @@ class ProdukController extends Controller
 
     public function edit($id) {
         $produk = Produk::findOrFail($id);
+        $produk->foto_url = $produk->foto ? Storage::url($produk->foto) : null; 
         return Inertia::render('Produk/Edit', ['produk' => $produk]);
     }
 

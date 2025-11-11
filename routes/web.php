@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KeranjangController;
 
 
 
@@ -37,4 +38,9 @@ Route::put('/produk/{id}', [ProdukController::class, 'update'])->name('produk.up
 
 //lihat detail produk
 Route::get('/buket/{id}', [DashboardController::class, 'show'])->name('produk.detail');
+
+//nambahkan ke keranjangg
+Route::post('/keranjang/tambah', [KeranjangController::class, 'tambah']);
+Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang.index');
+
 require __DIR__.'/auth.php';
