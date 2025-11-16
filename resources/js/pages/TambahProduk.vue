@@ -30,9 +30,9 @@
           class="flex-1 rounded-md p-2 border bg-white border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#5B7263]"
         >
           <option disabled value="">Pilih Jenis</option>
-          <option>Buket Bunga</option>
-          <option>Buket Snack</option>
-          <option>Buket Boneka</option>
+          <option value="buket_bunga">Buket Bunga</option>
+          <option value="buket_snack">Buket Snack</option>
+          <option value="buket_boneka">Buket Boneka</option>
         </select>
       </div>
 
@@ -44,14 +44,14 @@
           class="flex-1 rounded-md p-2 border bg-white border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#5B7263]"
         >
           <option disabled value="">Pilih Tema</option>
-          <option>Wedding</option>
-          <option>Ulang Tahun</option>
-          <option>Graduation</option>
+          <option value="wedding">Wedding</option>
+          <option value="birthday">Ulang Tahun</option>
+          <option value="graduation">Graduation</option>
         </select>
       </div>
 
       <!-- Size -->
-      <div class="flex items-center gap-6">
+      <!-- <div class="flex items-center gap-6">
         <label class="w-24 text-right text-sm font-medium text-gray-800">Size</label>
         <select
           v-model="produk.size"
@@ -62,7 +62,7 @@
           <option>M</option>
           <option>L</option>
         </select>
-      </div>
+      </div> -->
 
       <!-- Harga -->
       <div class="flex items-center gap-6">
@@ -129,19 +129,29 @@ const handleFile = (e) => {
 }
 
 const submitForm = () => {
-  if (produk.value.nama && produk.value.harga) {
-    emit('save', { ...produk.value })
-    produk.value = {
-      nama: '',
-      jenis: '',
-      tema: '',
-      size: '',
-      harga: '',
-      deskripsi: '',
-      foto: null,
-    }
+  const form = new FormData()
+
+ form.append('nama', produk.value.nama)
+form.append('jenis_buket', produk.value.jenis) // 🟢 bukan 'jenis'
+form.append('tema', produk.value.tema)
+form.append('harga', produk.value.harga)
+form.append('deskripsi', produk.value.deskripsi)
+form.append('foto', produk.value.foto)
+
+
+  if (produk.value.foto) {
+    form.append('foto', produk.value.foto)
   }
+
+  router.post('/produk', form, {
+    onSuccess: () => {
+      emit('close')
+
+      router.get('/lihat')
+    }
+  })
 }
+
 
 const closeModal = () => {
   router.visit('/lihat', { preserveState: true })

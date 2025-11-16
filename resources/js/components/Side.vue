@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen w-64 bg-[#5E756F] text-white flex flex-col justify-between py-6 font-poppins">
+  <div class="w-64 bg-[#5E756F] text-white flex flex-col justify-between py-6 font-poppins h-full">
     <!-- Bagian atas -->
     <div>
       <div class="flex items-center justify-center mb-8">

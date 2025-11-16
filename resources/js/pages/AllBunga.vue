@@ -1,7 +1,6 @@
 <template>
-  <div class="flex min-h-screen bg-[#FBF5F1] font-poppins">
-    <!-- Sidebar -->
-    <Side />
+  <DefaultSidebar>
+  <div class="flex min-h-screen bg-[#FBF5F1] font-poppins"> 
 
     <!-- Konten utama -->
     <div class="flex-1 p-10 overflow-y-auto">
@@ -30,6 +29,7 @@
       </div>
     </div>
   </div>
+  </DefaultSidebar>
 </template>
 
 <script setup>

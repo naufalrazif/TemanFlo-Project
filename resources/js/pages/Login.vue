@@ -6,9 +6,9 @@
   <div>
     <img src="/assets/logo2.png" alt="logo" class="flex justify-center w-auto h-40  absolute top-10 left-1/2 transform -translate-x-1/2" />
 
-  </div>
+  </div> 
     <div
-      class="bg-[#73615F]/75 rounded-[30px] shadow-lg p-10 w-[420px] text-center text-white mt-30"
+      class="bg-[#73615F]/75 rounded-[30px] shadow-lg p-10 w-[420px] text-center text-white mt-20"
     >
       <!-- Judul -->
       <h1 class="text-3xl font-bold mb-2 tracking-wide">LOGIN</h1>
@@ -19,6 +19,13 @@
 
       <!-- Form -->
       <form @submit.prevent="submitLogin" class="space-y-5">
+        <div v-if="errors?.email" class="text-red-400 text-sm text-left">
+          {{ errors.email }}
+        </div>
+        <div v-if="errors?.password" class="text-red-400 text-sm text-left">
+          {{ errors.password }}
+        </div>
+
         <div class="text-left">
           <label class="block mb-1 font-medium">Email</label>
           <input
@@ -73,18 +80,31 @@
 </template>
 
 <script setup>
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
 import { router } from "@inertiajs/vue3";
 import bgLogin from "../assets/bgLogin.jpg";
 
-
+// data form
 const form = reactive({
   email: "",
   password: "",
   remember: false,
 });
 
+// tempat untuk menampung error dari backend
+const errors = ref({});
+
 function submitLogin() {
-  router.post("/login", form);
+  router.post("/login", form, {
+    onSuccess: () => {
+      console.log("Login berhasil!");
+      router.visit("/home"); // redirect ke /home
+    },
+    onError: (err) => {
+      console.error("Login gagal:", err);
+      errors.value = err || {}; // kalau error dari Laravel, simpan ke errors
+    },
+  });
 }
 </script>
+

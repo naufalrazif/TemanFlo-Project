@@ -33,9 +33,9 @@
           class="flex-1 rounded-md p-2 border bg-white border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#5B7263]"
         >
           <option disabled value="">Pilih Jenis</option>
-          <option>Buket Bunga</option>
-          <option>Buket Snack</option>
-          <option>Buket Boneka</option>
+         <option value="buket_bunga">Buket Bunga</option>
+          <option value="buket_snack">Buket Snack</option>
+          <option value="buket_boneka">Buket Boneka</option>
         </select>
       </div>
 
@@ -47,14 +47,14 @@
           class="flex-1 rounded-md p-2 border bg-white border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#5B7263]"
         >
           <option disabled value="">Pilih Tema</option>
-          <option>Wedding</option>
-          <option>Ulang Tahun</option>
-          <option>Graduation</option>
+          <option value="wedding">Wedding</option>
+          <option value="birthday">Ulang Tahun</option>
+          <option value="graduation">Graduation</option>
         </select>
       </div>
 
       <!-- Size -->
-      <div class="flex items-center gap-6">
+      <!-- <div class="flex items-center gap-6">
         <label class="w-24 text-right text-sm font-medium text-gray-800">Size</label>
         <select
           v-model="produk.size"
@@ -65,7 +65,7 @@
           <option>M</option>
           <option>L</option>
         </select>
-      </div>
+      </div> -->
 
       <!-- Harga -->
       <div class="flex items-center gap-6">
@@ -125,34 +125,54 @@ import { router } from '@inertiajs/vue3'
 
 const emit = defineEmits(['save', 'close'])
 
+const props = defineProps({
+  product: {
+    type: Object,
+    default: () => ({}),
+  },
+})
+
+
 const produk = ref({
-  nama: '',
-  jenis: '',
-  tema: '',
-  size: '',
-  harga: '',
-  deskripsi: '',
+  id: props.product.id ?? null,
+  nama: props.product.nama ?? '',
+  jenis: props.product.jenis_buket ?? '',
+  tema: props.product.tema ?? '',
+  harga: props.product.harga ?? '',
+  deskripsi: props.product.deskripsi ?? '',
   foto: null,
 })
+
+
 
 const handleFile = (e) => {
   produk.value.foto = e.target.files[0]
 }
 
 const submitForm = () => {
-  if (produk.value.nama && produk.value.harga) {
-    emit('save', { ...produk.value })
-    produk.value = {
-      nama: '',
-      jenis: '',
-      tema: '',
-      size: '',
-      harga: '',
-      deskripsi: '',
-      foto: null,
-    }
+  const formData = new FormData()
+  formData.append('nama', produk.value.nama)
+  formData.append('jenis_buket', produk.value.jenis)
+  formData.append('tema', produk.value.tema)
+  formData.append('harga', produk.value.harga)
+  formData.append('deskripsi', produk.value.deskripsi)
+
+  if (produk.value.foto) {
+    formData.append('foto', produk.value.foto)
   }
+
+  if (produk.value.id) {
+    // EDIT MODE
+    router.put(`/produk/${produk.value.id}`, formData)
+  } else {
+    // CREATE MODE
+    router.post('/produk', formData)
+  }
+
+  emit('close')
 }
+
+
 
 const closeModal = () => {
   router.visit('/lihat', { preserveState: true })

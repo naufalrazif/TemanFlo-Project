@@ -5,11 +5,11 @@
   >
     <!-- Card -->
      <div>
-    <img src="/assets/logo2.png" alt="logo" class="flex justify-center w-auto h-40  absolute top-10 left-1/2 transform -translate-x-1/2" />
+    <img src="/assets/logo2.png" alt="logo" class="absolute top-10 left-1/2 transform -translate-x-1/2 w-auto h-40" />
 
   </div>
     <div
-      class="bg-[#5D776C]/75 backdrop-blur-sm rounded-[25px] p-10 w-[400px] text-white text-center shadow-2xl mt-35"
+      class="bg-[#5D776C]/75 backdrop-blur-sm rounded-[25px] p-10 w-[400px] text-white text-center shadow-2xl mt-20"
     >
 
 
@@ -25,7 +25,7 @@
         <div>
           <label class="block text-sm mb-1 font-medium">Email</label>
           <input
-            v-model="email"
+            v-model="form.email"
             type="email"
             required
             class="w-full rounded-full px-4 py-2 bg-white text-gray-900 placeholder-gray-400 shadow-sm focus:ring-2 focus:ring-[#F3D6D0] focus:outline-none"
@@ -36,7 +36,7 @@
         <div>
           <label class="block text-sm mb-1 font-medium">Password</label>
           <input
-            v-model="password"
+            v-model="form.password"
             type="password"
             required
             class="w-full rounded-full px-4 py-2 bg-white text-gray-900 placeholder-gray-400 shadow-sm focus:ring-2 focus:ring-[#F3D6D0] focus:outline-none"
@@ -47,7 +47,7 @@
         <div>
           <label class="block text-sm mb-1 font-medium">No.Telepon</label>
           <input
-            v-model="phone"
+            v-model="form.no_hp"
             type="text"
             required
             class="w-full rounded-full px-4 py-2 bg-white text-gray-900 placeholder-gray-400 shadow-sm focus:ring-2 focus:ring-[#F3D6D0] focus:outline-none"
@@ -56,11 +56,11 @@
         </div>
 
         <button
-          type="submit"
-          class="w-1/2 mx-auto block bg-[#F3D6D0] text-black font-semibold py-2 rounded-full hover:bg-[#F0C7BE] transition"
-        >
-          Sign Up
-        </button>
+  type="submit"
+  class="w-1/2 mx-auto block bg-[#F3D6D0] text-black text-center font-semibold py-2 rounded-full hover:bg-[#F0C7BE] transition"
+>
+  Sign Up
+</button>
       </form>
 
       <p class="text-xs mt-6 text-gray-200 text-center">
@@ -73,19 +73,31 @@
 
 <script setup>
 import { ref } from "vue";
+import { router } from "@inertiajs/vue3";
 import bgLogin from "../assets/bgLogin.jpg";
+import { useForm } from '@inertiajs/vue3'
 
 
-const email = ref("");
-const password = ref("");
-const phone = ref("");
+
+const form = useForm({
+  email: '',
+  password: '',
+  no_hp: ''
+})
 
 const handleSubmit = () => {
-  console.log({
-    email: email.value,
-    password: password.value,
-    phone: phone.value,
-  });
-  alert("Sign Up Berhasil!");
-};
+  console.log('Mengirim data:', form)
+
+  form.post('/register', {
+    onSuccess: () => {
+      console.log('Registrasi berhasil!')
+      // redirect manual ke halaman yang kamu mau
+      window.location.href = '/home'
+    },
+    onError: (errors) => {
+      console.error('Gagal validasi:', errors)
+    }
+  })}
+
 </script>
+

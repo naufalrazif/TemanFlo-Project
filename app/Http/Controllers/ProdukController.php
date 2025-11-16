@@ -15,7 +15,7 @@ class ProdukController extends Controller
             return $produk;
         });
 
-        return Inertia::render('Produk/Index', ['produks' => $produks]);
+        return Inertia::render('LihatProdukAdmin', ['produks' => $produks]);
     }
 
     public function show($id) {
@@ -51,7 +51,7 @@ class ProdukController extends Controller
 
     public function edit($id) {
         $produk = Produk::findOrFail($id);
-        return Inertia::render('Produk/Edit', ['produk' => $produk]);
+        return Inertia::render('Edit', ['produk' => $produk]);
     }
 
     public function update(Request $request, $id) {
