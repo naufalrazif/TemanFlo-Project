@@ -60,17 +60,9 @@ Route::get('/footer', function () {
     return Inertia::render('About');
 });
 
-Route::get('/allbunga', function () {
-    return Inertia::render('AllBunga');
-});
-
-Route::get('/allsnack', function () {
-    return Inertia::render('AllSnack');
-});
-
-Route::get('/allboneka', function () {
-    return Inertia::render('AllBoneka');
-});
+Route::get('/allbunga', [ProdukController::class, 'allBunga'])->name('allbunga');
+Route::get('/allsnack', [ProdukController::class, 'allSnack'])->name('allsnack');
+Route::get('/allboneka', [ProdukController::class, 'allBoneka'])->name('allboneka');
 
 Route::get('/dashboard-admin', function (){
     return Inertia::render('DashboardAdmin');

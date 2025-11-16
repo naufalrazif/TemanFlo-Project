@@ -1,9 +1,9 @@
 <template>
-  <DefaultSidebar>
   <div class="flex min-h-screen bg-[#FBF5F1] font-poppins"> 
+    <Sidebar />
 
     <!-- Konten utama -->
-    <div class="flex-1 p-10 overflow-y-auto">
+    <div class="flex-1 ml-64 p-10 overflow-y-auto">
       <!-- Judul -->
       <h1 class="text-4xl font-[Rochester]  text-gray-800 mb-10">
         All Product Buket Bunga
@@ -29,59 +29,15 @@
       </div>
     </div>
   </div>
-  </DefaultSidebar>
 </template>
 
 <script setup>
-import Side from "@/components/Side.vue";
+import Sidebar from "@/components/Sidebar.vue";
+import { usePage } from '@inertiajs/vue3';
 
-const products = [
-  {
-    name: "Buket Mawar Pink",
-    price: "Rp 35.000",
-    image: "/assets/bouquet-pink.jpg",
-  },
-  {
-    name: "Buket Mawar Tosca",
-    price: "Rp 35.000",
-    image: "/assets/bouquet-tosca.jpg",
-  },
-  {
-    name: "Buket Mawar Merah",
-    price: "Rp 35.000",
-    image: "/assets/bouquet-merah.jpg",
-  },
-  {
-    name: "Buket Mawar Hitam",
-    price: "Rp 35.000",
-    image: "/assets/bouquet-hitam.jpg",
-  },
-  {
-    name: "Buket Mawar Putih",
-    price: "Rp 35.000",
-    image: "/assets/bouquet-putih.jpg",
-  },
-  {
-    name: "Buket Mawar Biru",
-    price: "Rp 35.000",
-    image: "/assets/bouquet-biru.jpg",
-  },
-  {
-    name: "Buket Mawar Hijau",
-    price: "Rp 35.000",
-    image: "/assets/bouquet-hijau.jpg",
-  },
-  {
-    name: "Buket Mawar Ungu",
-    price: "Rp 35.000",
-    image: "/assets/bouquet-ungu.jpg",
-  },
-  {
-    name: "Buket Mawar Navy",
-    price: "Rp 35.000",
-    image: "/assets/bouquet-navy.jpg",
-  },
-];
+// Ambil data dari controller lewat props
+const { props } = usePage();
+const products = props.products; 
 </script>
 
 <style scoped>

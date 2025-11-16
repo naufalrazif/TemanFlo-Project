@@ -1,10 +1,10 @@
 <template>
   <div class="flex min-h-screen bg-[#FBF5F1] font-poppins">
     <!-- Sidebar -->
-    <Side />
+    <Sidebar />
 
     <!-- Konten utama -->
-    <div class="flex-1 p-10 overflow-y-auto">
+    <div class="flex-1 ml-64 p-10 overflow-y-auto">
       <!-- Judul -->
       <h1 class="text-4xl font-[Rochester]  text-gray-800 mb-10">
         All Product Buket Snack
@@ -33,40 +33,13 @@
 </template>
 
 <script setup>
-import Side from "@/components/Side.vue";
+import Sidebar from "@/components/Sidebar.vue";
 
-const products = [
-  {
-    name: "Buket mix Pink",
-    price: "Rp 35.000",
-    image: "/assets/bouquet-pink.jpg",
-  },
-  {
-    name: "Buket Silverqueen",
-    price: "Rp 35.000",
-    image: "/assets/bouquet-tosca.jpg",
-  },
-  {
-    name: "Buket Mix Pocky",
-    price: "Rp 35.000",
-    image: "/assets/bouquet-merah.jpg",
-  },
-  {
-    name: "Buket Mix Black",
-    price: "Rp 35.000",
-    image: "/assets/bouquet-hitam.jpg",
-  },
-  {
-    name: "Buket Mix Ungu",
-    price: "Rp 35.000",
-    image: "/assets/bouquet-putih.jpg",
-  },
-  {
-    name: "Buket Serba Biru",
-    price: "Rp 35.000",
-    image: "/assets/bouquet-biru.jpg",
-  },
-];
+import { usePage } from '@inertiajs/vue3';
+
+// Ambil data dari controller lewat props
+const { props } = usePage();
+const products = props.products; 
 </script>
 
 <style scoped>

@@ -1,13 +1,12 @@
 <template>
-  <div class="flex min-h-screen bg-[#FBF5F1] font-poppins">
-    <!-- Sidebar -->
+  <div class="flex min-h-screen bg-[#FBF5F1] font-poppins"> 
     <Sidebar />
 
     <!-- Konten utama -->
     <div class="flex-1 ml-64 p-10 overflow-y-auto">
       <!-- Judul -->
       <h1 class="text-4xl font-[Rochester]  text-gray-800 mb-10">
-        All Product Buket Boneka
+        All Product Custome Buket
       </h1>
 
       <!-- Grid produk -->
@@ -34,7 +33,6 @@
 
 <script setup>
 import Sidebar from "@/components/Sidebar.vue";
-
 import { usePage } from '@inertiajs/vue3';
 
 // Ambil data dari controller lewat props
