@@ -59,6 +59,8 @@ class ProdukController extends Controller
             return redirect()->route('allboneka')->with('success', 'Produk berhasil ditambahkan.');
         case 'snack':
             return redirect()->route('allsnack')->with('success', 'Produk berhasil ditambahkan.');
+        case 'custom':
+            return redirect()->route('allcustom')->with('success', 'Produk berhasil ditambahkan.');
         default:
             return redirect()->route('produk.index')->with('success', 'Produk berhasil ditambahkan.');
     }
@@ -156,5 +158,19 @@ public function allSnack() {
 return Inertia::render('AllSnack', ['products' => $produks]);
 
 }
+// Halaman AllCustom
+public function allcustom() {
+    $produks = Produk::where('jenis_buket', 'buket_custom')
+    ->get()
+    ->map(function ($produk) {
+        $produk->foto_url = $produk->foto ? Storage::url($produk->foto) : null;
+        return [
+            'name' => $produk->nama,
+            'price' => 'Rp ' . number_format($produk->harga, 0, ',', '.'),
+            'image' => $produk->foto_url
+        ];
+    });
 
+return Inertia::render('AllCustom', ['products' => $produks]);
+}
 }
