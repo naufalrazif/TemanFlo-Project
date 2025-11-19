@@ -49,11 +49,24 @@ Route::put('/produk/{id}', [ProdukController::class, 'update'])->name('produk.up
 Route::get('/buket/{id}', [DashboardController::class, 'show'])->name('produk.detail');
 
 
-
-
+Route::get('/allbunga', function () {
+    return Inertia::render('AllBunga');
+});
+Route::get('/allsnack', function () {
+    return Inertia::render('AllSnack');
+});
+Route::get('/allboneka', function () {
+    return Inertia::render('AllBoneka');
+});
+ 
+Route::get('/manajemen', function () {
+    return Inertia::render('TambahProduk2');
+});
 //navbar
 Route::get('/allbunga', [NavbarController::class, 'katalog'])->name('katalog');
 Route::get('/about', [NavbarController::class, 'about'])->name('about');
+
+
 
 
 require __DIR__.'/auth.php';

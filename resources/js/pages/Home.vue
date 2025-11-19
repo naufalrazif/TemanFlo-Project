@@ -28,7 +28,7 @@
 
       <!-- Tombol Reusable -->
       <div class="w-full flex justify-center mt-15">
-        <ButtonLihatSemua @click="ButtonLihatSemua" />
+        <ButtonLihatSemua to="/allbunga" />
       </div>
     </section>
 
@@ -40,7 +40,8 @@
 
       <!-- Tombol Reusable -->
     <div class="w-full flex justify-center mt-15">
-      <ButtonLihatSemua @click="ButtonLihatSemua" />
+     <ButtonLihatSemua to="/allsnack" />
+
       </div>
     </section>
 
@@ -51,7 +52,7 @@
       <CardProduk :produks="produks" jenis="buket_boneka" />
       <!-- Tombol Reusable -->
     <div class="w-full flex justify-center mt-15">
-      <ButtonLihatSemua @click="ButtonLihatSemua" />
+      <ButtonLihatSemua to="/allboneka" />
       </div>
     </section>
 
@@ -61,7 +62,7 @@
       <p class="text-xl font-light px-7 mb-8 max-w-6xl mx-auto">Layanan custom bouquet kami memberikan kebebasan penuh untuk membuat rangkaian bunga sesuai keinginan dan momen spesialmu. Pilih sendiri jenis buket, warna, hingga gaya wrapping yang kamu suka dan biarkan tim kami merangkainya dengan sepenuh hati.</p>
       <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto px-6">
         <div
-          v-for="(item, index) in customBuket"
+          v-for="(item, index) in CustomBuket"
           :key="index"
           class="bg-[#fefefe] rounded-xl shadow-md hover:shadow-lg p-4"
         >

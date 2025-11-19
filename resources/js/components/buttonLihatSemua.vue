@@ -10,7 +10,14 @@
 <script setup>
 import { router } from '@inertiajs/vue3'
 
+const props = defineProps({
+  to: {
+    type: String,
+    required: true
+  }
+})
+
 const navigate = () => {
-  router.visit('/produk')
+  router.visit(props.to)
 }
 </script>

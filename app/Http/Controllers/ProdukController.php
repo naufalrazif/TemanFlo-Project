@@ -18,6 +18,62 @@ class ProdukController extends Controller
         return Inertia::render('Produk/Index', ['produks' => $produks]);
     }
 
+    public function bunga()
+    {
+        $produks = Produk::where('jenis_buket', 'buket_bunga')
+            ->get()
+            ->map(function ($produk) {
+                $produk->foto_url = $produk->foto ? Storage::url($produk->foto) : null;
+                return $produk;
+            });
+
+        return Inertia::render('Produk/AllBunga', [
+            'produks' => $produks
+        ]);
+    }
+
+    public function snack() {
+    $produks = Produk::where('jenis_buket', 'buket_snack')
+        ->get()
+        ->map(function ($produk) {
+            $produk->foto_url = $produk->foto ? Storage::url($produk->foto) : null;
+            return $produk;
+        });
+
+    return Inertia::render('Produk/AllSnack', [
+        'produks' => $produks
+    ]);
+}
+
+    public function boneka() {
+    $produks = Produk::where('jenis_buket', 'buket_boneka')
+        ->get()
+        ->map(function ($produk) {
+            $produk->foto_url = $produk->foto ? Storage::url($produk->foto) : null;
+            return $produk;
+        });
+        return Inertia::render('ProductPage', [
+        'title' => 'All Product Buket Boneka',
+        'products' => $produks,
+    ]);
+}
+
+    public function uang() {
+    $produks = Produk::where('jenis_buket', 'buket_uang')
+        ->get()
+        ->map(function ($produk) {
+            $produk->foto_url = $produk->foto ? Storage::url($produk->foto) : null;
+            return $produk;
+        });
+
+    return Inertia::render('Produk/AllUang', [
+        'produks' => $produks
+    ]);
+}
+
+
+
+
     public function show($id) {
         $produk = Produk::findOrFail($id);
         return Inertia::render('Produk/Show', ['produk' => $produk]);
