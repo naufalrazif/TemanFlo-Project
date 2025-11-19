@@ -9,6 +9,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\NavbarController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Middleware\RoleMiddleware;
 
 Route::get('/', [DashboardController::class, 'index'])
     ->name('dashboard');
@@ -29,44 +30,33 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkout', [PaymentController::class, 'store'])->name('pesanan.store');
 
 });
+Route::middleware(['auth',  RoleMiddleware::class . ':admin'])->group(function () {
 
+    Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
+    
+    //route menambah produk
+    Route::get('/produk/create', [ProdukController::class, 'create'])->name('produk.create');
+    Route::post('/produk', [ProdukController::class, 'store'])->name('produk.store');
+    
+    //route menghapus produk
+    Route::delete('/produk/{id}', [ProdukController::class, 'destroy'])->name('produk.destroy');
+    
+    //route mengedit produk
+    Route::get('/produk/{id}/edit', [ProdukController::class, 'edit'])->name('produk.edit');
+    Route::put('/produk/{id}', [ProdukController::class, 'update'])->name('produk.update');
+});
 //route melihat daftar produk
-Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
-
-//route menambah produk
-Route::get('/produk/create', [ProdukController::class, 'create'])->name('produk.create');
-Route::post('/produk', [ProdukController::class, 'store'])->name('produk.store');
-
-//route menghapus produk
-Route::delete('/produk/{id}', [ProdukController::class, 'destroy'])->name('produk.destroy');
-
-//route mengedit produk
-Route::get('/produk/{id}/edit', [ProdukController::class, 'edit'])->name('produk.edit');
-Route::put('/produk/{id}', [ProdukController::class, 'update'])->name('produk.update');
 
 
 //lihat detail produk
 Route::get('/buket/{id}', [DashboardController::class, 'show'])->name('produk.detail');
 
 
-Route::get('/allbunga', function () {
-    return Inertia::render('AllBunga');
-});
-Route::get('/allsnack', function () {
-    return Inertia::render('AllSnack');
-});
-Route::get('/allboneka', function () {
-    return Inertia::render('AllBoneka');
-});
- 
-Route::get('/manajemen', function () {
-    return Inertia::render('TambahProduk2');
-});
+
+
 //navbar
 Route::get('/allbunga', [NavbarController::class, 'katalog'])->name('katalog');
 Route::get('/about', [NavbarController::class, 'about'])->name('about');
-
-
 
 
 require __DIR__.'/auth.php';
