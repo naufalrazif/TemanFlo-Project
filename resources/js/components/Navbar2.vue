@@ -8,7 +8,7 @@
       </div>
 
       <!-- Navigation -->
-       <nav class="hidden md:flex space-x-8 text-base font-medium">
+       <nav class="hidden md:flex space-x-8 text-base font-medium text-[#ffffff]">
         <a href="/home" class="hover:font-semibold">Home</a>
         <a href ="/allbunga" class="hover:font-semibold">Katalog</a>
         <a href="/footer" class="hover:font-semibold">About Us</a>

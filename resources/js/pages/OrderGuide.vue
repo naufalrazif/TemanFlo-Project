@@ -1,8 +1,9 @@
 <template>
-  <div class="min-h-screen  bg-[#f1d1c2] font-[Poppins] text-[#000000]">
+  <div class="min-h-screen mt-20 bg-[#f1d1c2] font-[Poppins] text-[#000000]">
     <div>
-      <Navbar1 />
+      <Navbar2 />
     </div>
+    
     <!-- Judul -->
     <h1 class="text-4xl text-[#3b2a29] font-[Rochester] mb-10 text-center">Ordering Guide</h1>
 
@@ -67,5 +68,5 @@
 </template>
 
 <script setup>
- import Navbar1 from '@/components/Navbar1.vue';
+ import Navbar2 from '@/components/Navbar2.vue';
 </script>

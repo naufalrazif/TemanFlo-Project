@@ -4,7 +4,6 @@
   >
     <!-- Tombol X -->
     <button @click="$emit('close')" class="absolute top-3 right-3 text-gray-600 hover:text-black text-xl">
-      ×
     </button>
 
     <h2 class="text-lg font-semibold mb-6 border-b border-gray-300 pb-3">
