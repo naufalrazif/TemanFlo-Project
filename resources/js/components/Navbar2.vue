@@ -1,6 +1,6 @@
 <template>
   <header>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+    <div class="fixed top-0 left-0  w-full h-20 mx-auto px-4 sm:px-4 lg:px-6 flex bg-[#5E756F] items-center justify-between">
       
       <!-- Logo -->
       <div class="flex items-center space-x-2 py-4 ml-5">
@@ -35,5 +35,5 @@
 </template>
 
 <script setup>
-// No logic needed for static navbar, but you can add reactive state if needed later
+
 </script>
