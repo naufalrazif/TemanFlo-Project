@@ -20,11 +20,14 @@ class PaymentController extends Controller
         // Simpan pesanan ke database
         $pesanan = Pesanan::create([
             'user_id' => Auth::id(),
+            'nama' => $request->nama,
             'alamat' => $request->alamat,
-            'custom' => "-",
+            'no_telp' => $request->no_telp,
             'metode_pembayaran' => $request->metode,
             'status_pembayaran' => "pending",
         ]);
+
+        
 
         // Parameter transaksi untuk Midtrans
         $payload = [
@@ -49,7 +52,19 @@ class PaymentController extends Controller
 
         // Kirim ke Payment.vue
         return inertia()->location(url()->previous() . '?snap_token=' . $snapToken);
+        
+        $keranjang = Keranjang::where('user_id', Auth::id())->first();
 
+        foreach($keranjang->itemKeranjang as $item){
+            $pesanan->detailPesanans()->create([
+                'produk_id' => $item->produk_id,
+                'jumlah' => $item->jumlah,
+                'subtotal' => $item->produk->harga * $item->jumlah,
+            ]);
+        }
+
+        // Opsional: hapus item dari keranjang setelah checkout
+        //$keranjang->itemKeranjang()->delete();
 
 }
 }

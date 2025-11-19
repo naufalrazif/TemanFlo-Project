@@ -12,6 +12,13 @@
         <a href="/" class="hover:font-semibold">Home</a>
         <a href ="/allbunga" class="hover:font-semibold">Katalog</a>
         <a href="/about" class="hover:font-semibold">About Us</a>
+        <a
+          v-if="$page.props.auth.user && $page.props.auth.user.role === 'admin'"
+          :href="route('produk.index')"
+          class="hover:font-semibold"
+        >
+          Admin
+        </a>
       </nav>
 
       <!-- Icons -->

@@ -17,8 +17,9 @@ return new class extends Migration
         
         $table->dateTime('tanggal_pesanan')->useCurrent();
         $table->string('alamat');
-        $table->string('delivery')->nullable();
-        $table->text('custom');
+        $table->string('nama');
+        $table->string('no_telp',15);
+        $table->text('custom')->nullable();
         $table->string('metode_pembayaran');
         $table->string('status_pembayaran')->default('pending'); // status midtrans
         $table->string('midtrans_transaction_id')->nullable(); // transaction_id dari midtrans

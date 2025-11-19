@@ -6,18 +6,18 @@
       <!-- LEFT -->
       <div class="bg-[#e6bbaa] p-8 flex flex-col gap-4">
         <h2 class="text-lg font-semibold">Contact Information</h2>
-        <input type="text" placeholder="Email" class="input" />
-        <input type="text" placeholder="Phone number" class="input" />
+        <input type="text" v-model="form.email" placeholder="Email" class="input" />
+        <input type="text" v-model="form.no_telp" placeholder="Phone number" class="input" />
 
         <div class="flex gap-3">
-          <input type="text" placeholder="First name" class="input w-full" />
-          <input type="text" placeholder="Last name" class="input w-full" />
+          <input type="text" v-model="form.first_name" placeholder="First name" class="input w-full" />
+          <input type="text" v-model="form.last_name" placeholder="Last name" class="input w-full" />
         </div>
 
         <h2 class="text-lg font-semibold mt-3">Alamat</h2>
-        <input type="text" placeholder="Kota / Kecamatan" class="input" />
-        <input type="text" placeholder="Kode Pos" class="input" />
-        <input type="text" placeholder="Detail Alamat (jalan, no. rumah)" class="input" />
+        <input type="text" v-model="form.kota" placeholder="Kota / Kecamatan" class="input" />
+        <input type="text" v-model="form.kode_pos" placeholder="Kode Pos" class="input" />
+        <input type="text" v-model="form.detail_alamat" placeholder="Detail Alamat (jalan, no. rumah)" class="input" />
 
         
 
@@ -81,17 +81,33 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { computed, reactive} from "vue";
 import { router, usePage } from "@inertiajs/vue3";
 import { onMounted } from "vue";
 
+const form = reactive({
+  email: "",
+  no_telp: "",
+  first_name: "",
+  last_name: "",
+  kota: "",
+  kode_pos: "",
+  detail_alamat: "",
+});
+
 function bayar() {
-  const alamatLengkap =
-    form.kota +" , Kode Pos: " + form.kode_pos + " , " + form.detail_alamat;
+  const alamatLengkap = 
+    `${form.kota}, Kode Pos: ${form.kode_pos}, ${form.detail_alamat}`;
+
+  const nama = `${form.first_name} ${form.last_name}`; // ada spasi
+
   router.post(route("pesanan.store"), {
+    nama: nama,
+    email: form.email,
+    no_telp: form.no_telp,
     alamat: alamatLengkap,
     metode: "shopeepay",
-    total: totalPrice.value,
+    total: totalPrice.value + 10000, // total + ongkir
   });
 }
 
@@ -125,15 +141,7 @@ function formatNumber(num) {
   return num.toLocaleString("id-ID");
 }
 
-const form = reactive({
-  email: "",
-  phone: "",
-  first_name: "",
-  last_name: "",
-  kota: "",
-  kode_pos: "",
-  detail_alamat: "",
-});
+
 
 
 </script>
