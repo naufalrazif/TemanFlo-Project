@@ -6,7 +6,7 @@ import InputLabel from '@/components/InputLabel.vue';
 import PrimaryButton from '@/components/PrimaryButton.vue';
 import TextInput from '@/components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
-
+import bgLogin from "@/assets/BgLogin.jpg";
 defineProps({
     canResetPassword: {
         type: Boolean,
@@ -105,7 +105,7 @@ const submit = () => {
       <!-- Link ke signup -->
       <p class="text-gray-200 text-sm mt-6">
         Don’t have an account?
-        <a href="/signup" class="font-bold hover:underline">SIGN UP</a>
+        <a href="/register" class="font-bold hover:underline">SIGN UP</a>
       </p>
     </div>
   </div>

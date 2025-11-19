@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import Sidebar from "@/Components/Sidebar.vue";
+import Sidebar from "@/components/Sidebar.vue";
 
 interface Produk {
   id: number;

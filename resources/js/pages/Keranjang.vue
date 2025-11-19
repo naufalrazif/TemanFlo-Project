@@ -45,12 +45,31 @@
 
         <div>
           <div class="flex items-center gap-2">
-            <button class="qty-btn" @click="increaseQty(index)">+</button>
+            <!--tombol - -->
+              <button
+                class="qty-btn bg-gray-200 px-3 py-1 rounded hover:bg-gray-300"
+                @click="ubahJumlah(item, item.qty - 1)"
+                :disabled="item.qty <= 1"
+              >
+                -
+              </button>
             <span>{{ item.qty }}</span>
-            <button class="qty-btn" @click="decreaseQty(index)">-</button>
+            <!-- Tombol + -->
+              <button
+                class="qty-btn bg-gray-200 px-3 py-1 rounded hover:bg-gray-300"
+                @click="ubahJumlah(item, item.qty + 1)"
+                
+              >
+                +
+              </button>
           </div>
-          <button class="hapus-btn" @click="removeItem(index)">Hapus</button>
-        </div>
+          <button
+            class="hapus-btn text-red-500 hover:text-red-700 ml-3"
+            @click="hapusItem(item.id)"
+          >
+            Hapus
+          </button>
+        </div>  
 
         <p class="font-medium">Rp{{ formatNumber(item.price * item.qty) }}</p>
       </div>
@@ -72,6 +91,7 @@
 <script setup>
 import Navbar from "@/components/Navbar.vue";
 import { computed } from "vue";
+import { router } from "@inertiajs/vue3";
 
 const props = defineProps({
   keranjang: Object, // dari controller Laravel
@@ -98,18 +118,33 @@ function formatNumber(num) {
   return num.toLocaleString("id-ID");
 }
 
-// Sementara belum pakai update/hapus ke backend
-function increaseQty(index) {
-  cart.value[index].qty++;
+// tambah tambahan
+function ubahJumlah(item, jumlahBaru) {
+  if (jumlahBaru < 1) return;
+  router.put(
+    route("keranjang.update"),
+    { 
+      jumlah: jumlahBaru,
+      item_id: item.id
+    },
+    {
+      preserveScroll: true,
+      preserveState: true,
+    }
+  );
 }
-function decreaseQty(index) {
-  if (cart.value[index].qty > 1) cart.value[index].qty--;
+
+function hapusItem(itemId) {
+  if (confirm("Yakin ingin menghapus item ini?")) {
+    router.delete(route("keranjang.delete", itemId), {
+      preserveScroll: true,
+      preserveState: true,
+    });
+  }
 }
-function removeItem(index) {
-  cart.value.splice(index, 1);
-}
+
 function checkout() {
-  console.log("Checkout data:", cart.value);
+  router.get(route("checkout"));
 }
 </script>
 

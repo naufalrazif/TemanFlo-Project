@@ -14,13 +14,15 @@ return new class extends Migration
         Schema::create('pesanans', function (Blueprint $table) {
         $table->id();
         $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-        $table->foreignId('produk_id')->constrained('produks')->nullable()->onDelete('cascade');
+        
         $table->dateTime('tanggal_pesanan')->useCurrent();
         $table->string('alamat');
         $table->string('delivery')->nullable();
         $table->text('custom');
-        $table->enum('metode_pembayaran', ['COD', 'Transfer', 'E-Wallet']); // ?????
-        $table->enum('status', ['dalam proses', 'selesai'])->default('dalam proses');
+        $table->string('metode_pembayaran');
+        $table->string('status_pembayaran')->default('pending'); // status midtrans
+        $table->string('midtrans_transaction_id')->nullable(); // transaction_id dari midtrans
+        $table->enum('status', ['dalam proses', 'selesai','batal'])->default('dalam proses');
         $table->timestamps();
     });
     }

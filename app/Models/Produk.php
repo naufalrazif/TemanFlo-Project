@@ -27,12 +27,20 @@ class Produk extends Model
 
     public function pesanan()
     {
-        return $this->hasMany(Pesanan::class);
+        return $this->belongsToMany(Pesanan::class, 'detail_pesanans')
+                    ->withPivot(['jumlah', 'subtotal'])
+                    ->withTimestamps();
+        
     }
     public function item_keranjang()
     {
         return $this->hasMany(item_keranjang::class);
     }
+
+    public function detailPesanans()
+{
+    return $this->hasMany(Detail_pesanan::class);
+}
 
     
 

@@ -7,18 +7,27 @@ use Inertia\Inertia;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KeranjangController;
-
-
-
+use App\Http\Controllers\NavbarController;
+use App\Http\Controllers\PaymentController;
 
 Route::get('/', [DashboardController::class, 'index'])
-    ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    //nambahkan ke keranjangg
+    Route::post('/keranjang/tambah', [KeranjangController::class, 'tambah']);
+    Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang.index');
+    Route::put('/keranjang/update', [KeranjangController::class, 'update'])->name('keranjang.update');
+    Route::delete('/keranjang/{id}', [KeranjangController::class, 'destroy'])->name('keranjang.delete');
+
+    //payment
+    Route::get('/checkout', [KeranjangController::class, 'checkout'])->name('checkout');
+    Route::post('/checkout', [PaymentController::class, 'store'])->name('pesanan.store');
+
 });
 
 //route melihat daftar produk
@@ -39,8 +48,12 @@ Route::put('/produk/{id}', [ProdukController::class, 'update'])->name('produk.up
 //lihat detail produk
 Route::get('/buket/{id}', [DashboardController::class, 'show'])->name('produk.detail');
 
-//nambahkan ke keranjangg
-Route::post('/keranjang/tambah', [KeranjangController::class, 'tambah']);
-Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang.index');
+
+
+
+//navbar
+Route::get('/allbunga', [NavbarController::class, 'katalog'])->name('katalog');
+Route::get('/about', [NavbarController::class, 'about'])->name('about');
+
 
 require __DIR__.'/auth.php';
