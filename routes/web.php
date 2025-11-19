@@ -63,6 +63,7 @@ Route::get('/footer', function () {
 Route::get('/allbunga', [ProdukController::class, 'allBunga'])->name('allbunga');
 Route::get('/allsnack', [ProdukController::class, 'allSnack'])->name('allsnack');
 Route::get('/allboneka', [ProdukController::class, 'allBoneka'])->name('allboneka');
+Route::get('/allcustom', [ProdukController::class, 'allcustom'])->name('allcustom');
 
 Route::get('/dashboard-admin', function (){
     return Inertia::render('DashboardAdmin');

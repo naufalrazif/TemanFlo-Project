@@ -4,7 +4,7 @@
     <!-- Bagian atas -->
     <div>
       <!-- Tombol back -->
-      <div class="flex items-center justify-center mb-8">
+      <div class="flex items-center justify-left ml-5 mb-8">
         <ButtonBack @click="back" />
       </div>
 
@@ -63,12 +63,12 @@
           <button
             :class="[
               'w-full text-left px-4 py-2 rounded-md transition',
-              currentPath === '/custom-buket'
+              currentPath === '/allcustom'
                 ? 'bg-[#8A6E68]'
                 : 'hover:bg-[#8A6E68]'
             ]"
           >
-            Custom Buket
+           <a href="/allcustom">Custom Buket</a>
           </button>
         </li>
 

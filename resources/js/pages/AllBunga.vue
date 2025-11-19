@@ -1,5 +1,6 @@
 <template>
-  <div class="flex min-h-screen bg-[#FBF5F1] font-poppins"> 
+  <div class="flex min-h-screen bg-[#FBF5F1] font-poppins">
+    <!-- Sidebar -->
     <Sidebar />
 
     <!-- Konten utama -->
@@ -33,6 +34,7 @@
 
 <script setup>
 import Sidebar from "@/components/Sidebar.vue";
+
 import { usePage } from '@inertiajs/vue3';
 
 // Ambil data dari controller lewat props
