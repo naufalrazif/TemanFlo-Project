@@ -24,6 +24,7 @@ return new class extends Migration
         $table->string('status_pembayaran')->default('pending'); // status midtrans
         $table->string('midtrans_transaction_id')->nullable(); // transaction_id dari midtrans
         $table->enum('status', ['dalam proses', 'selesai','batal'])->default('dalam proses');
+        $table->string('order_id');
         $table->timestamps();
     });
     }

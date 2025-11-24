@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
-    public function store(Request $request)
+    public function token(Request $request)
     {
         // SETTING MIDTRANS
         \Midtrans\Config::$serverKey = config('midtrans.server_key');
@@ -17,8 +17,11 @@ class PaymentController extends Controller
         \Midtrans\Config::$isSanitized = true;
         \Midtrans\Config::$is3ds = true;
 
+        $orderId = 'INV-' . time();
+
         // Simpan pesanan ke database
         $pesanan = Pesanan::create([
+            'order_id' => $orderId,
             'user_id' => Auth::id(),
             'nama' => $request->nama,
             'alamat' => $request->alamat,
@@ -27,32 +30,7 @@ class PaymentController extends Controller
             'status_pembayaran' => "pending",
         ]);
 
-        
-
-        // Parameter transaksi untuk Midtrans
-        $payload = [
-            'transaction_details' => [
-                'order_id' => $pesanan->id,
-                'gross_amount' => $request->total,
-            ],
-            'customer_details' => [
-                'first_name' => Auth::user()->name,
-            ],
-            'enabled_payments' => [
-                'shopeepay', 'gopay', 'bri_va', 'bca_va'
-            ]
-        ];
-
-        // Request SNAP TOKEN
-        $snapToken = \Midtrans\Snap::getSnapToken($payload);
-
-        // Simpan transaction ID
-        $pesanan->midtrans_transaction_id = $snapToken;
-        $pesanan->save();
-
-        // Kirim ke Payment.vue
-        return inertia()->location(url()->previous() . '?snap_token=' . $snapToken);
-        
+        //detail pesanan
         $keranjang = Keranjang::where('user_id', Auth::id())->first();
 
         foreach($keranjang->itemKeranjang as $item){
@@ -62,9 +40,62 @@ class PaymentController extends Controller
                 'subtotal' => $item->produk->harga * $item->jumlah,
             ]);
         }
+        
 
+        // Parameter transaksi untuk Midtrans
+        $payload = [
+            'transaction_details' => [
+                'order_id' => $orderId, 
+                'gross_amount' => $request->total,
+            ],
+            'customer_details' => [
+                'first_name' => Auth::user()->name,
+            ],
+
+        ];
+
+        // Request SNAP TOKEN
+        $snapToken = \Midtrans\Snap::getSnapToken($payload);
+
+        // Simpan transaction ID
+
+
+        // Kirim ke Payment.vue
+        return inertia()->location(url()->previous() . '?snap_token=' . $snapToken);
+        
+        /*
+        
+        */
         // Opsional: hapus item dari keranjang setelah checkout
         //$keranjang->itemKeranjang()->delete();
+    }
 
-}
+    public function webhook(Request $request){
+        $notif = $request->all();
+
+        $orderId = $notif['order_id'];
+        $status  = $notif['transaction_status'];
+
+        $pesanan = Pesanan::where('order_id', $orderId)->first();
+
+        if (!$pesanan) {
+            return response()->json(['message' => 'Order not found'], 404);
+        }
+
+        if ($status === "capture" || $status === "settlement") {
+            $pesanan->update([
+                'status_pembayaran' => 'success'
+            ]);
+        } elseif ($status === "expire") {
+            $pesanan->update([
+                'status_pembayaran' => 'expired'
+            ]);
+        } elseif ($status === "cancel") {
+            $pesanan->update([
+                'status_pembayaran' => 'cancelled'
+            ]);
+        }
+
+        return response()->json(['message' => 'OK']);
+    }
 }

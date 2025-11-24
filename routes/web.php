@@ -27,9 +27,11 @@ Route::middleware('auth')->group(function () {
 
     //payment
     Route::get('/checkout', [KeranjangController::class, 'checkout'])->name('checkout');
-    Route::post('/checkout', [PaymentController::class, 'store'])->name('pesanan.store');
+    Route::post('/checkout/bayar', [PaymentController::class, 'token'])->name('pesanan.token');
 
 });
+    //webhook
+    Route::post('/checkout/webhook', [PaymentController::class, 'webhook']);
 Route::middleware(['auth',  RoleMiddleware::class . ':admin'])->group(function () {
 
     Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');

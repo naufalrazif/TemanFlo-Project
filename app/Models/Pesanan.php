@@ -24,7 +24,7 @@ class Pesanan extends Model
         'status_pembayaran',
         'midtrans_transaction_id',
         'status',
-        
+        'order_id',
     ];
 
     /**

@@ -101,7 +101,7 @@ function bayar() {
 
   const nama = `${form.first_name} ${form.last_name}`; // ada spasi
 
-  router.post(route("pesanan.store"), {
+  router.post(route("pesanan.token"), {
     nama: nama,
     email: form.email,
     no_telp: form.no_telp,
