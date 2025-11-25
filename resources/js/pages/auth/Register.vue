@@ -8,7 +8,7 @@ import { Head, Link, useForm } from '@inertiajs/vue3';
 import bgLogin from "@/assets/bgLogin.jpg";
 
 const form = useForm({
-    nama: '',
+    name: '',
     email: '',
     no_telp: '',
     password: '',
@@ -49,15 +49,15 @@ const submit = () => {
         <div>
           <label class="block text-sm mb-1 font-medium">Nama</label>
           <input
-            id="nama"
+            id="name"
             type="text"
             class="w-full rounded-full px-4 py-2 bg-white text-gray-900 placeholder-gray-400 shadow-sm focus:ring-2 focus:ring-[#F3D6D0] focus:outline-none"
-            v-model="form.nama"
+            v-model="form.name"
             required
             autofocus
-            autocomplete="nama"
+            autocomplete="name"
           />
-            <InputError class="mt-2" :message="form.errors.nama" />
+            <InputError class="mt-2" :message="form.errors.name" />
 
         </div>
 

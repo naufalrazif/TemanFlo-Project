@@ -74,7 +74,7 @@ class PaymentController extends Controller
         $notif = $request->all();
 
         $orderId = $notif['order_id'];
-        $status  = $notif['transaction_status'];
+        $status  = $notif['transaction_status']; 
 
         $pesanan = Pesanan::where('order_id', $orderId)->first();
 

@@ -32,6 +32,9 @@ Route::middleware('auth')->group(function () {
 });
     //webhook
     Route::post('/checkout/webhook', [PaymentController::class, 'webhook']);
+    Route::get('/checkout/success', function() {
+        return redirect()->route('dashboard'); // arahkan ke home
+    })->name('payment.finish');
 Route::middleware(['auth',  RoleMiddleware::class . ':admin'])->group(function () {
 
     Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
