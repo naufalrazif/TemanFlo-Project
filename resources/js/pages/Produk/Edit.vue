@@ -31,17 +31,11 @@ const form = useForm({
 })
 
 const handleSubmit = () => {
-  form.put(`/produk/${props.produk.id}`, {
-    method: 'put', 
+  router.put(`/produk/${props.produk.id}`, form.data(), {
     forceFormData: true,
-    onSuccess: () => {
-      form.reset('foto')
-    },
-    onError: (errors) => {
-      console.error(errors)
-    },
-  })
-}
+    onSuccess: () => form.reset('foto'),
+  });
+};
 
 const handleFileChange = (event: Event) => {
   const target = event.target as HTMLInputElement;

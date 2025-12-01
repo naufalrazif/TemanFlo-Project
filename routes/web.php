@@ -10,6 +10,8 @@ use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\NavbarController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Middleware\RoleMiddleware;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CustomController;
 
 Route::get('/', [DashboardController::class, 'index'])
     ->name('dashboard');
@@ -31,10 +33,10 @@ Route::middleware('auth')->group(function () {
 
 });
     //webhook
-    Route::post('/checkout/webhook', [PaymentController::class, 'webhook']);
-    Route::get('/checkout/success', function() {
-        return redirect()->route('dashboard'); // arahkan ke home
-    })->name('payment.finish');
+     Route::get('/checkout/finish', [PaymentController::class, 'finish'])->name('payment.finish');
+ 
+
+
 Route::middleware(['auth',  RoleMiddleware::class . ':admin'])->group(function () {
 
     Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
@@ -49,6 +51,9 @@ Route::middleware(['auth',  RoleMiddleware::class . ':admin'])->group(function (
     //route mengedit produk
     Route::get('/produk/{id}/edit', [ProdukController::class, 'edit'])->name('produk.edit');
     Route::put('/produk/{id}', [ProdukController::class, 'update'])->name('produk.update');
+
+    //dashboard admin
+    Route::get('/dashboard-admin', [AdminController::class, 'index'])->name('admin.dashboard');
 });
 //route melihat daftar produk
 
@@ -56,12 +61,12 @@ Route::middleware(['auth',  RoleMiddleware::class . ':admin'])->group(function (
 //lihat detail produk
 Route::get('/buket/{id}', [DashboardController::class, 'show'])->name('produk.detail');
 
-
-
-
 //navbar
 Route::get('/allbunga', [NavbarController::class, 'katalog'])->name('katalog');
 Route::get('/about', [NavbarController::class, 'about'])->name('about');
+
+//custom order
+Route::get('/custom-order', [CustomController::class, 'index'])->name('custom');
 
 
 require __DIR__.'/auth.php';

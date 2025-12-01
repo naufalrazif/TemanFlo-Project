@@ -7,6 +7,7 @@ use App\Models\Pesanan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
 class PaymentController extends Controller
 {
     public function token(Request $request)
@@ -51,6 +52,12 @@ class PaymentController extends Controller
             'customer_details' => [
                 'first_name' => Auth::user()->name,
             ],
+            'callbacks' => [
+                'finish' => 'http://localhost:8000/checkout/finish',
+                'error'  => 'http://localhost:8000/checkout/finish',
+                'pending' => 'http://localhost:8000/checkout/finish',
+            ],
+                    
 
         ];
 
@@ -66,7 +73,6 @@ class PaymentController extends Controller
         /*
         
         */
-        // Opsional: hapus item dari keranjang setelah checkout
         //$keranjang->itemKeranjang()->delete();
     }
 
@@ -85,6 +91,7 @@ class PaymentController extends Controller
         if ($status === "capture" || $status === "settlement") {
             $pesanan->update([
                 'status_pembayaran' => 'success'
+                
             ]);
         } elseif ($status === "expire") {
             $pesanan->update([
@@ -97,5 +104,13 @@ class PaymentController extends Controller
         }
 
         return response()->json(['message' => 'OK']);
+    }
+
+    public function finish(Request $request)
+    {
+        $orderId = $request->query('order_id'); 
+        $pesanan = Pesanan::where('order_id', $orderId)->first();
+
+        return inertia('Invoice',compact('pesanan'));
     }
 }

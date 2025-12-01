@@ -38,6 +38,10 @@ const handleDelete = (id: number) => {
     }
 }
 
+const goToPesanan = () => {
+  router.visit('/dashboard-admin')
+};
+
 
 </script>
 
@@ -47,18 +51,18 @@ const handleDelete = (id: number) => {
       <!-- Header Section -->
       <div class="bg-[#E6C7C0] h-[150px] px-10 py-8 flex justify-between items-start">
         <div class="flex items-center justify-center mb-8">
-          <ButtonBack @click="back" />
+          <!--<ButtonBack @click="back" /> -->
         </div>
 
         <h1 class="text-2xl font-semibold text-gray-900 flex-1 ml-6">
           Dashboard Admin
         </h1>
 
-        <DropdownSort @select="handleSort" />
+        <!-- <DropdownSort @select="handleSort" />-->
       </div>
 
       <!-- Action Button -->
-      <div class="px-10 py-6">
+      <div class="px-10 py-6 w-full flex justify-between items-center">
         <Dialog>
           <DialogTrigger>
             <Button class="flex items-center gap-2 bg-[#5B7263] text-white font-medium px-4 py-2 rounded-md hover:bg-[#4d6155] transition">
@@ -69,6 +73,12 @@ const handleDelete = (id: number) => {
             <Create />
           </DialogContent>
         </Dialog>
+
+        <Button
+        @click="goToPesanan" 
+        class="flex items-center gap-2 bg-[#5B7263] text-white font-medium px-4 py-2 rounded-md hover:bg-[#4d6155] transition">
+          Pesanan
+        </Button>
       </div>
 
       <!-- Table Section -->
@@ -109,7 +119,8 @@ const handleDelete = (id: number) => {
                         <Button>Edit</Button>
                     </DialogTrigger>
                     <DialogContent class="bg-[#f3cbb7] p-6 rounded-xl border-none">
-                        <Edit :produk="produk" />
+                        <Edit :key="produk.id" :produk="produk" />
+
                     </DialogContent>
                   </Dialog>
                   <Button class="bg-red-600 text-white"
