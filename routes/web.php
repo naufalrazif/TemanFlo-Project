@@ -12,6 +12,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Middleware\RoleMiddleware;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomController;
+use App\Http\Controllers\DashboardUserController;
 
 Route::get('/', [DashboardController::class, 'index'])
     ->name('dashboard');
@@ -30,6 +31,8 @@ Route::middleware('auth')->group(function () {
     //payment
     Route::get('/checkout', [KeranjangController::class, 'checkout'])->name('checkout');
     Route::post('/checkout/bayar', [PaymentController::class, 'token'])->name('pesanan.token');
+
+    Route::get('/dashboard-user', [DashboardUserController::class, 'index'])->name('dashboard.user');
 
 });
     //webhook
@@ -54,6 +57,9 @@ Route::middleware(['auth',  RoleMiddleware::class . ':admin'])->group(function (
 
     //dashboard admin
     Route::get('/dashboard-admin', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::put('/admin/pesanan/{id}/status', [AdminController::class, 'updateStatus']);
+
+
 });
 //route melihat daftar produk
 

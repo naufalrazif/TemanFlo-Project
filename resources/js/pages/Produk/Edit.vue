@@ -1,118 +1,148 @@
-<script setup lang="ts">
-import { useForm, router } from '@inertiajs/vue3'
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+//edit 
+<template>
+  <div class="bg-[#F3D5C0] rounded-xl shadow-lg w-[550px] max-w-[90%] mx-auto p-8 relative z-60">
+    <!-- Tombol X -->
+    <button
+      @click="closeModal"
+      class="absolute top-5 right-6 text-black text-2xl font-light hover:text-gray-700"
+    >
+      ×
+    </button>
 
+    <h2 class="text-lg font-semibold mb-6 border-b border-gray-300 pb-3">Edit Produk</h2>
 
-interface Produk {
-  id: number;
-  nama: string;
-  jenis_buket: string;
-  tema: string;
-  harga: number;
-  deskripsi: string;
-  foto: string;
-}
+    <form @submit.prevent="submitForm" class="space-y-4">
+      <!-- Nama -->
+      <div class="flex items-center gap-6">
+        <label class="w-24 text-right text-sm font-medium text-gray-800">Nama</label>
+        <input
+          v-model="form.nama"
+          type="text"
+          class="flex-1 rounded-md p-2 border bg-white border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#5B7263]"
+        />
+      </div>
 
-const props = defineProps<{ produk: Produk }>();
+      <!-- Jenis (jenis_buket) -->
+      <div class="flex items-center gap-6">
+        <label class="w-24 text-right text-sm font-medium text-gray-800">Jenis</label>
+        <select
+          v-model="form.jenis_buket"
+          class="flex-1 rounded-md p-2 border bg-white border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#5B7263]"
+        >
+          <option disabled value="">Pilih Jenis</option>
+          <option value="buket_bunga">Buket Bunga</option>
+          <option value="buket_snack">Buket Snack</option>
+          <option value="buket_boneka">Buket Boneka</option>
+          <option value="buket_uang">Buket Uang</option>
+        </select>
+      </div>
 
-console.log(props.produk);
+      <!-- Tema -->
+      <div class="flex items-center gap-6">
+        <label class="w-24 text-right text-sm font-medium text-gray-800">Tema</label>
+        <select
+          v-model="form.tema"
+          class="flex-1 rounded-md p-2 border bg-white border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#5B7263]"
+        >
+          <option disabled value="">Pilih Tema</option>
+          <option value="wedding">Wedding</option>
+          <option value="birthday">Ulang Tahun</option>
+          <option value="graduation">Graduation</option>
+        </select>
+      </div>
 
-const form = useForm({
-  nama: props.produk.nama,
-  jenis_buket: props.produk.jenis_buket,
-  tema: props.produk.tema,
-  harga: props.produk.harga,
-  deskripsi: props.produk.deskripsi,
-  foto: null as File | null,
+      <!-- Harga -->
+      <div class="flex items-center gap-6">
+        <label class="w-24 text-right text-sm font-medium text-gray-800">Harga</label>
+        <input
+          v-model.number="form.harga"
+          type="number"
+          placeholder="Contoh: 50000"
+          class="flex-1 rounded-md p-2 border bg-white border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#5B7263]"
+        />
+      </div>
+
+      <!-- Deskripsi -->
+      <div class="flex items-start gap-6">
+        <label class="w-24 text-right text-sm font-medium text-gray-800 mt-2">Deskripsi</label>
+        <textarea
+          v-model="form.deskripsi"
+          rows="3"
+          class="flex-1 rounded-md p-2 border bg-white border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#5B7263]"
+        ></textarea>
+      </div>
+
+      <!-- Foto -->
+      <div class="flex items-center gap-6">
+        <label class="w-24 text-right text-sm font-medium text-gray-800">Foto</label>
+        <input
+          type="file"
+          @change="handleFile"
+          class="flex-1 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-[#7D6962] file:text-white hover:file:bg-[#6d5c55]"
+        />
+      </div>
+
+      <!-- Tombol -->
+      <div class="flex justify-end mt-6 gap-3">
+        <button
+          type="button"
+          @click="closeModal"
+          class="bg-white text-gray-800 border border-gray-300 px-5 py-2 rounded-lg hover:bg-gray-100 transition"
+        >
+          Batal
+        </button>
+
+        <button
+          type="submit"
+          class="bg-[#5B7263] text-white px-5 py-2 rounded-lg hover:bg-[#4a5e53] transition"
+          :disabled="form.processing"
+        >
+          Simpan
+        </button>
+      </div>
+    </form>
+  </div>
+</template>
+
+<script setup>
+import { defineProps, defineEmits } from 'vue'
+import { useForm } from '@inertiajs/vue3'
+
+// Terima props produk dari parent
+const props = defineProps({
+  produk: Object // data produk dari controller
 })
 
-const handleSubmit = () => {
-  router.put(`/produk/${props.produk.id}`, form.data(), {
-    forceFormData: true,
-    onSuccess: () => form.reset('foto'),
-  });
-};
+// Emit event ke parent untuk tutup modal
+const emit = defineEmits(['close'])
 
-const handleFileChange = (event: Event) => {
-  const target = event.target as HTMLInputElement;
-  if (target.files && target.files[0]) {
-    form.foto = target.files[0];
-  }
+// Inisialisasi form dengan data produk
+const form = useForm({
+  nama: props.produk.nama || '',
+  jenis_buket: props.produk.jenis_buket || '',
+  tema: props.produk.tema || '',
+  harga: props.produk.harga || 0,
+  deskripsi: props.produk.deskripsi || '',
+  foto: null,
+})
+
+// Handle upload file
+const handleFile = (e) => {
+  form.foto = e.target.files[0]
 }
 
+// Submit form ke backend
+const submitForm = () => {
+  form.put(route('produk.update', props.produk.id), {
+    preserveScroll: true,
+    onSuccess: () => {
+      emit('close') // Tutup modal setelah sukses
+    }
+  })
+}
+
+// Tutup modal tanpa redirect
+const closeModal = () => {
+  emit('close')
+}
 </script>
-
-<template>
-    <form @submit.prevent="handleSubmit">
-    <div class="bg-[#f3cbb7] p-6 rounded-xl space-y-4">
-    <h2 class="text-lg font-semibold">Tambah Produk</h2>
-
-    <div class="flex items-center gap-4">
-      <Label for="nama" class="w-1/3 text-right">Nama</Label>
-      <Input id="nama" v-model="form.nama"  class="flex-1 bg-white" />
-    </div>
-    
-
-    <div class="flex items-center gap-4">
-      <Label for="category" class="w-1/3 text-right">Kategori</Label>
-      <Select v-model="form.jenis_buket">
-        <SelectTrigger class="flex-1 bg-white">
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="buket_bunga">Buket Bunga</SelectItem>
-          <SelectItem value="buket_snack">Buket Snack</SelectItem>
-          <SelectItem value="buket_boneka">Buket Boneka</SelectItem>
-          <SelectItem value="buket_uang">Buket Uang</SelectItem>
-        </SelectContent>
-      </Select>
-    </div>
-
-    <div class="flex items-center gap-4">
-      <Label for="category" class="w-1/3 text-right">Tema</Label>
-      <Select v-model="form.tema">
-        <SelectTrigger class="flex-1 bg-white">
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="birthday">Birthday</SelectItem>
-          <SelectItem value="graduation">Graduation</SelectItem>
-          <SelectItem value="wedding">Wedding</SelectItem>
-        </SelectContent>
-      </Select>
-    </div>
-
-    <div class="flex items-center gap-4">
-      <Label for="nama" class="w-1/3 text-right">Harga</Label>
-      <Input id="nama" type="number" v-model="form.harga" class="flex-1 bg-white" />
-    </div>
-
-    <div  class="flex items-center gap-4">
-      <Label for="deskripsi" class="w-1/3 text-right">Deskripsi</Label>
-      <Textarea id="deskripsi" v-model="form.deskripsi"  class="flex-1 bg-white"  />
-    </div>
-
-    <div class="flex items-center gap-4">
-      <Label for="foto" class="w-1/3 text-right">Foto</Label>
-      <Input 
-        id="foto" 
-        type="file" 
-        class="flex-1 bg-white" 
-        accept="image/*" 
-       @change="handleFileChange"
-      />
-  
-    </div>
-
-    <div class="flex justify-end">
-      <Button type="submit" class="bg-[#5c7b66] hover:bg-[#4e6958] text-white"  >
-        Submit
-      </Button>
-    </div>
-  </div>
-  </form>   
-</template>

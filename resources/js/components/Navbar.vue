@@ -14,7 +14,7 @@
         <a href="/about" class="hover:font-semibold">About Us</a>
         <a
           v-if="$page.props.auth.user && $page.props.auth.user.role === 'admin'"
-          :href="route('produk.index')"
+          :href="route('admin.dashboard')"
           class="hover:font-semibold"
         >
           Admin

@@ -53,9 +53,9 @@ class PaymentController extends Controller
                 'first_name' => Auth::user()->name,
             ],
             'callbacks' => [
-                'finish' => 'http://localhost:8000/checkout/finish',
-                'error'  => 'http://localhost:8000/checkout/finish',
-                'pending' => 'http://localhost:8000/checkout/finish',
+                'finish' => 'http://localhost:8000/',
+                'error'  => 'http://localhost:8000/',
+                'pending' => 'http://localhost:8000/',
             ],
                     
 

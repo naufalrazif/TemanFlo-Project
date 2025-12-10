@@ -22,5 +22,27 @@ class AdminController extends Controller
             'pesanans' => $pesanans,
         ]);
     }
+
+    public function updateStatus(Request $request, $id)
+    {
+        // Validasi input
+        $validated = $request->validate([
+            'status' => 'required|string|in:dalam proses,selesai,batal'
+        ]);
+
+        // Ambil pesanan
+        $pesanan = Pesanan::findOrFail($id);
+
+        // Update status
+        $pesanan->status = $validated['status'];
+        $pesanan->save();
+
+        return back()->with([
+            'message' => 'Status pesanan berhasil diperbarui.'
+        ]);
+    }
+
+
+    
 }
 
