@@ -2,22 +2,24 @@
   <div class="min-h-screen bg-[#f9f5f3] text-[#2d2d2d]">
 
     <!-- Header -->
-    <header class="flex items-center justify-between px-10 py-5 border-b bg-white">
-      <img src="/src/assets/logo.jpg" alt="Logo" class="h-14" />
+    <header class="flex items-center justify-between px-6 md:px-10 py-4 border-b bg-white">
+      <img src="/src/assets/logo.jpg" alt="Logo" class="h-12 md:h-14" />
 
-        <Navbar />
+      <!-- Navbar (disembunyikan di mobile) -->
+     <Navbar />
 
-      <div class="flex items-center gap-5 text-xl">
+      <!-- Icons -->
+      <div class="flex items-center gap-4 text-xl">
         <i class="ri-shopping-cart-line cursor-pointer"></i>
         <i class="ri-user-3-line cursor-pointer"></i>
       </div>
     </header>
 
     <!-- Title -->
-    <h1 class="text-center text-3xl cart-title py-6">Cart</h1>
+    <h1 class="ml-10 mt-5 text-4xl py-6 font-[Rochester]">Keranjang Saya</h1>
 
     <!-- Header grid -->
-    <div class="grid grid-cols-4 px-12 py-3 border-y text-sm font-medium">
+    <div class="hidden md:grid grid-cols-4 px-6 md:px-12 py-3 border-y text-sm font-medium">
       <p>Produk</p>
       <p>Harga Satuan</p>
       <p>Jumlah</p>
@@ -25,13 +27,14 @@
     </div>
 
     <!-- Cart items -->
-    <div class="px-12 py-6 space-y-6">
+    <div class="px-6 md:px-12 py-6 space-y-6">
 
       <div
         v-for="(item, index) in cart"
         :key="index"
-        class="grid grid-cols-4 items-center"
+        class="grid grid-cols-1 md:grid-cols-4 items-start gap-4 border-b pb-4"
       >
+        <!-- Produk -->
         <div class="flex items-center gap-4">
           <img :src="item.img" class="w-20 h-20 rounded object-cover" />
           <div>
@@ -41,48 +44,59 @@
           </div>
         </div>
 
-        <p class="font-medium">Rp{{ formatNumber(item.price) }}</p>
+        <!-- Harga -->
+        <p class="font-medium md:flex md:items-center">{{ formatNumber(item.price) }}</p>
 
-        <div>
-          <div class="flex items-center gap-2">
-            <!--tombol - -->
-              <button
-                class="qty-btn bg-gray-200 px-3 py-1 rounded hover:bg-gray-300"
-                @click="ubahJumlah(item, item.qty - 1)"
-                :disabled="item.qty <= 1"
-              >
-                -
-              </button>
-            <span>{{ item.qty }}</span>
-            <!-- Tombol + -->
-              <button
-                class="qty-btn bg-gray-200 px-3 py-1 rounded hover:bg-gray-300"
-                @click="ubahJumlah(item, item.qty + 1)"
-                
-              >
-                +
-              </button>
+        <!-- Quantity -->
+        <div class="flex flex-col gap-2">
+          <div class="flex items-center gap-3">
+            <button
+              @click="ubahJumlah(item, item.qty - 1)"
+              :disabled="item.qty <= 1"
+              class="px-3 py-1 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
+            >
+              -
+            </button>
+
+            <span class="text-lg">{{ item.qty }}</span>
+
+            <button
+              @click="ubahJumlah(item, item.qty + 1)"
+              class="px-3 py-1 rounded bg-gray-200 hover:bg-gray-300"
+            >
+              +
+            </button>
           </div>
+
           <button
-            class="hapus-btn text-red-500 hover:text-red-700 ml-3"
             @click="hapusItem(item.id)"
+            class="text-red-600 text-sm underline hover:text-red-800"
           >
             Hapus
           </button>
-        </div>  
+        </div>
 
-        <p class="font-medium">Rp{{ formatNumber(item.price * item.qty) }}</p>
+        <!-- Total -->
+        <p class="font-medium md:flex md:items-center">
+          Rp{{ formatNumber(item.price * item.qty) }}
+        </p>
       </div>
 
     </div>
 
     <!-- Footer -->
-    <div class="border-t mt-8 px-12 py-8 flex justify-end items-center text-lg font-medium">
-      <p class="mr-10">
+    <div class="border-t mt-8 px-6 md:px-12 py-8 flex flex-col md:flex-row justify-end items-end md:items-center gap-4 text-lg font-medium">
+      <p>
         Total Belanja :
         <span class="font-semibold">Rp{{ formatNumber(totalPrice) }}</span>
       </p>
-      <button class="checkout-btn" @click="checkout">CHECKOUT</button>
+
+      <button
+        class="bg-[#6b8573] text-white px-8 py-3 rounded-lg hover:bg-[#587261] transition"
+        @click="checkout"
+      >
+        CHECKOUT
+      </button>
     </div>
 
   </div>
@@ -94,7 +108,7 @@ import { computed } from "vue";
 import { router } from "@inertiajs/vue3";
 
 const props = defineProps({
-  keranjang: Object, // dari controller Laravel
+  keranjang: Object,
 });
 
 const cart = computed(() => {
@@ -102,8 +116,8 @@ const cart = computed(() => {
   return props.keranjang.item_keranjang.map((item) => ({
     id: item.id,
     name: item.produk.nama,
-    type: item.produk.tema, 
-    size: item.produk.jenis_buket, 
+    type: item.produk.tema,
+    size: item.produk.jenis_buket,
     price: item.produk.harga,
     qty: item.jumlah,
     img: item.produk.foto_url ? item.produk.foto_url : "/src/assets/noimage.jpg",
@@ -111,32 +125,24 @@ const cart = computed(() => {
 });
 
 const totalPrice = computed(() =>
-  cart.value.reduce((total, item) => total + item.price * item.qty, 0)
+  cart.value.reduce((t, item) => t + item.price * item.qty, 0)
 );
 
 function formatNumber(num) {
   return num.toLocaleString("id-ID");
 }
 
-// tambah tambahan
 function ubahJumlah(item, jumlahBaru) {
-  if (jumlahBaru < 1) return;
   router.put(
     route("keranjang.update"),
-    { 
-      jumlah: jumlahBaru,
-      item_id: item.id
-    },
-    {
-      preserveScroll: true,
-      preserveState: true,
-    }
+    { jumlah: jumlahBaru, item_id: item.id },
+    { preserveScroll: true, preserveState: true }
   );
 }
 
-function hapusItem(itemId) {
+function hapusItem(id) {
   if (confirm("Yakin ingin menghapus item ini?")) {
-    router.delete(route("keranjang.delete", itemId), {
+    router.delete(route("keranjang.delete", id), {
       preserveScroll: true,
       preserveState: true,
     });
@@ -147,22 +153,3 @@ function checkout() {
   router.get(route("checkout"));
 }
 </script>
-
-
-<style>
-.cart-title {
-  font-family: "Playfair Display", serif;
-}
-
-.qty-btn {
-  @apply px-3 py-1 rounded bg-[#e7c5c5] hover:bg-[#d3b1b1] transition;
-}
-
-.hapus-btn {
-  @apply text-sm text-red-600 underline mt-1;
-}
-
-.checkout-btn {
-  @apply bg-[#6b8573] text-white px-8 py-3 rounded-lg hover:bg-[#587261] transition;
-}
-</style>

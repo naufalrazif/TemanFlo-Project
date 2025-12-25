@@ -1,6 +1,6 @@
 <template>
   <button
-    class="font-2xl text-white px-6 py-3 rounded-xl bg-[#53776c] hover:bg-[#31463f] transition"
+    class="font-2xl text-white px-6 py-3 rounded-xl bg-[#5B7263] hover:bg-[#31463f] transition"
     @click="navigate"
   >
     Lihat Semua Produk

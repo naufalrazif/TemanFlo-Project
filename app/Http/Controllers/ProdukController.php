@@ -6,145 +6,149 @@ use Illuminate\Http\Request;
 use App\Models\Produk;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class ProdukController extends Controller
 {
-    public function index() {
-        $produks = Produk::all()->map(function ($produk) {
+    /**
+     * Index – tampilkan semua produk
+     */
+    public function index()
+    {
+        $produks = Produk::latest()->get()->map(function ($produk) {
             $produk->foto_url = $produk->foto ? Storage::url($produk->foto) : null;
             return $produk;
         });
 
-        return Inertia::render('Produk/Index', ['produks' => $produks]);
-    }
-
-    public function bunga()
-    {
-        $produks = Produk::where('jenis_buket', 'buket_bunga')
-            ->get()
-            ->map(function ($produk) {
-                $produk->foto_url = $produk->foto ? Storage::url($produk->foto) : null;
-                return $produk;
-            });
-
-        return Inertia::render('Produk/AllBunga', [
+        return Inertia::render('Produk/Index', [
             'produks' => $produks
         ]);
     }
 
-    public function snack() {
-    $produks = Produk::where('jenis_buket', 'buket_snack')
-        ->get()
-        ->map(function ($produk) {
-            $produk->foto_url = $produk->foto ? Storage::url($produk->foto) : null;
-            return $produk;
-        });
-
-    return Inertia::render('Produk/AllSnack', [
-        'produks' => $produks
-    ]);
-}
-
-    public function boneka() {
-    $produks = Produk::where('jenis_buket', 'buket_boneka')
-        ->get()
-        ->map(function ($produk) {
-            $produk->foto_url = $produk->foto ? Storage::url($produk->foto) : null;
-            return $produk;
-        });
-        return Inertia::render('ProductPage', [
-        'title' => 'All Product Buket Boneka',
-        'products' => $produks,
-    ]);
-}
-
-    public function uang() {
-    $produks = Produk::where('jenis_buket', 'buket_uang')
-        ->get()
-        ->map(function ($produk) {
-            $produk->foto_url = $produk->foto ? Storage::url($produk->foto) : null;
-            return $produk;
-        });
-
-    return Inertia::render('Produk/AllUang', [
-        'produks' => $produks
-    ]);
-}
-
-
-
-
-    public function show($id) {
-        $produk = Produk::findOrFail($id);
-        return Inertia::render('Produk/Show', ['produk' => $produk]);
-    }
-
-    public function create() {
+    /**
+     * Create – tampilkan form tambah produk
+     */
+    public function create()
+    {
         return Inertia::render('Produk/Create');
     }
 
-    public function store(Request $request) {
+    /**
+     * Store – simpan produk baru
+     */
+    public function store(Request $request): RedirectResponse
+    {
         $validated = $request->validate([
-            'nama' => 'required|string|max:50',
-            'jenis_buket' => 'required|string|max:255',
-            'tema' => 'required|string|max:255',
-            'deskripsi' => 'required|string',
-            'harga' => 'required|numeric',
-            'foto' => 'required|image|max:2048',
+            'nama'         => 'required|string|max:50',
+            'jenis_buket'  => 'required|string|max:255',
+            'tema'         => 'required|string|max:255',
+            'deskripsi'    => 'required|string',
+            'size'         => 'nullable|string|max:100',
+            'harga'        => 'required|numeric',
+            'foto'         => 'required|image|mimes:jpeg,jpg,png|max:2048',
         ]);
 
-        // Simpan file foto ke storage
+        // upload foto
         if ($request->hasFile('foto')) {
-            $path = $request->file('foto')->store('foto', 'public');
-            $validated['foto'] = $path;
+            $validated['foto'] = $request->file('foto')->store('foto', 'public');
         }
 
-        // Simpan data produk ke database
         Produk::create($validated);
 
-        return redirect()->route('produk.index')->with('success', 'Produk berhasil ditambahkan.');
+        return redirect()
+            ->route('produk.index')
+            ->with('success', 'Produk berhasil ditambahkan!');
     }
 
-    public function edit($id) {
+    /**
+     * Show – tampilkan detail produk
+     */
+    public function show($id)
+    {
         $produk = Produk::findOrFail($id);
-        $produk->foto_url = $produk->foto ? Storage::url($produk->foto) : null; 
-        return Inertia::render('Produk/Edit', ['produk' => $produk]);
+        $produk->foto_url = $produk->foto ? Storage::url($produk->foto) : null;
+
+        return Inertia::render('Produk/Show', [
+            'produk' => $produk
+        ]);
     }
 
-    public function update(Request $request, $id) {
+    /**
+     * Edit – tampilkan form edit produk
+     */
+    public function edit($id)
+    {
+        $produk = Produk::findOrFail($id);
+        $produk->foto_url = $produk->foto ? Storage::url($produk->foto) : null;
+
+        return Inertia::render('Produk/Edit', [
+            'produk' => $produk
+        ]);
+    }
+
+    /**
+     * Update – simpan perubahan produk
+     */
+    public function update(Request $request, $id): RedirectResponse
+    {
         $validated = $request->validate([
-            'nama' => 'required|string|max:50',
-            'jenis_buket' => 'required|in:buket_bunga,buket_snack,buket_boneka,buket_uang',
-            'tema' => 'required|in:birthday,graduation,wedding',
-            'deskripsi' => 'required|string',
-            'harga' => 'required|numeric',
-            'foto' => 'nullable|image|max:2048',
+            'nama'         => 'required|string|max:50',
+            'jenis_buket'  => 'required|in:buket_bunga,buket_snack,buket_boneka,buket_uang',
+            'tema'         => 'required|in:birthday,graduation,wedding',
+            'deskripsi'    => 'required|string',
+            'size'         => 'nullable|string|max:100',
+            'harga'        => 'required|numeric',
+            'foto'         => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
         ]);
 
         $produk = Produk::findOrFail($id);
 
-        // Jika upload foto baru, hapus foto lama dan simpan yang baru
+        // Data untuk update
+        $updateData = [
+            'nama'         => $validated['nama'],
+            'jenis_buket'  => $validated['jenis_buket'],
+            'tema'         => $validated['tema'],
+            'deskripsi'    => $validated['deskripsi'],
+            'size'         => $validated['size'],
+            'harga'        => $validated['harga'],
+        ];
+
+        // Jika upload foto baru
         if ($request->hasFile('foto')) {
+
+            // hapus foto lama
             if ($produk->foto) {
                 Storage::disk('public')->delete($produk->foto);
             }
-            $path = $request->file('foto')->store('foto', 'public');
-            $validated['foto'] = $path;
+
+            // upload foto baru
+            $updateData['foto'] = $request->file('foto')->store('foto', 'public');
         }
 
-        $produk->update($validated);
+        $produk->update($updateData);
 
-        return redirect()->route('produk.index')->with('success', 'Produk berhasil diperbarui.');
+        return redirect()
+            ->route('produk.index')
+            ->with('success', 'Produk berhasil diperbarui!');
     }
 
-    public function destroy($id) {
+    /**
+     * Destroy – hapus produk
+     */
+    public function destroy($id): RedirectResponse
+    {
         $produk = Produk::findOrFail($id);
 
+        // hapus foto jika ada
         if ($produk->foto) {
             Storage::disk('public')->delete($produk->foto);
         }
 
         $produk->delete();
-        return redirect()->route('produk.index')->with('success', 'Produk berhasil dihapus.');
+
+        return redirect()
+            ->route('produk.index')
+            ->with('success', 'Produk berhasil dihapus!');
     }
 }

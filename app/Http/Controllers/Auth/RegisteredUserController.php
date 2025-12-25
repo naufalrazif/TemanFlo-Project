@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendOtpMail;
+use Illuminate\Support\Facades\DB;
+use App\Rules\Captcha; 
 
 class RegisteredUserController extends Controller
 {
@@ -20,25 +24,23 @@ class RegisteredUserController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('Auth/Register');
+        return Inertia::render('Auth/Register', [
+            'captchaKey' => env('CAPTCHA_KEY') 
+        ]);
     }
 
-    /**
-     * Handle an incoming registration request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
-            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'no_telp' => 'required|string|max:15',
+            'g-recaptcha-response' => ['required', new Captcha()], 
         ]);
 
         $user = User::create([
-            'nama' => $request->nama,
+            'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'no_telp' => $request->no_telp,
@@ -47,8 +49,25 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
+        // Generate & Simpan OTP
+        $otp = rand(100000, 999999);
 
-        return redirect(route('dashboard', absolute: false));
+        DB::table('otps')->updateOrInsert(
+            ['user_id' => $user->id],
+            [
+                'otp_code' => $otp,
+                'expired_at' => now()->addMinutes(5),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
+        );
+
+        // Kirim Email OTP
+        Mail::to($user->email)->send(new SendOtpMail($otp, $user));
+
+        return redirect()->route('otp.verification')
+            ->with('success', 'Kode OTP telah dikirim ke email Anda.')
+            ->with('email', $user->email)
+            ->with('user_id', $user->id);
     }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex min-h-screen bg-[#FBF5F1] font-poppins">
+  <div class="flex min-h-screen bg-[#FBF5F1]">
     <!-- Sidebar -->
     <Sidebar />
 

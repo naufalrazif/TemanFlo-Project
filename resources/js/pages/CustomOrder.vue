@@ -1,15 +1,19 @@
 <template>
-  <div class="min-h-screen bg-[#f2cfc0] py-10 text-[#2b2b2b] font-[Poppins]">
+  <div class="min-h-screen bg-[#fefaf7] py-10 text-[#2b2b2b]">
     <div class="max-w-3xl mx-auto px-5 relative">
       <!-- Tombol kembali -->
       <div class="mb-2">
-          <ButtonBack />
+          <Navbar />
       </div>  
+
+      <div class="flex items-center justify-left pl-10 mt-10">
+            <ButtonBack @click="back" />
+        </div>
       
       <!--judul dan desk-->
-      <h1 class="text-center font-[Rochester] text-4xl mt-5">Custom Order</h1>
+      <h1 class="text-center font-[Rochester] text-4xl mt-20">Custom Order</h1>
       <div class="flex items-center justify-center">
-        <p class="w-[497px] h-[49px] text-center text-base mt-2 mb-10">
+        <p class="w-[497px] h-[49px] text-center text-base mt-8 mb-8">
           Ingin buket spesial? Tulis kreasimu di bawah ini, kami akan segera menghubungi untuk detail lebih lanjut.
         </p>
       </div>
@@ -51,22 +55,23 @@
             class="w-full px-4 py-2 rounded-xl border border-[#2b2b2b] bg-[#fffaf8] text-sm min-h-[150px] resize-y focus:outline-none"
           ></textarea>
         </div>
-
-        <div class="max-w-sm">
-          <label for="uangmuka" class="block font-semibold mb-2">Uang Muka</label>
-          <input
-            type="number"
-            id="uangmuka"
-            v-model="form.uangmuka"
-            placeholder="Contoh: 50000"
-            class="w-full px-4 py-2 rounded-xl border border-[#2b2b2b] bg-[#fffaf8] text-sm focus:outline-none"
-          />
+        <div class="flex flex-wrap gap-10">
+          <div class="flex-1 max-w-sm">
+            <label for="gambar" class="block font-semibold mb-2">Upload Gambar Referensi</label>
+            <input 
+              type="file" 
+              id="gambar" 
+              name="gambar" 
+              accept="image/*" 
+              class="flex-1 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-[#7D6962] file:text-white hover:file:bg-[#6d5c55]"
+            />
+            <p class="mt-1 text-xs text-gray-500">Format: JPG/PNG, maks 5MB</p>
+          </div>
+          <div class="flex-1 max-w-sm"></div>
         </div>
-
         <button
           type="submit"
-          class="self-end font-2xl text-white px-6 py-2 rounded-xl bg-[#53776c] hover:bg-[#31463f] transition"
-        >
+          class="self-end inline-block font-2xl text-white px-6 py-2 rounded-xl bg-[#53776c] hover:bg-[#31463f] transition">
           Pesan Sekarang
         </button>
       </form>
@@ -76,7 +81,8 @@
 
 <script setup>
 import { reactive } from "vue";
-import ButtonBack from "@/components/ButtonBack.vue";
+import { router } from "@inertiajs/vue3";
+import Navbar from "@/components/Navbar.vue";
 
 
 const form = reactive({
@@ -92,14 +98,24 @@ function filterAngka(event) {
     form.nohp = target.value.replace(/[^0-9]/g, '');
   }
 }
+function submitForm() {
+    const admin = "6285336385457";
 
-const submitForm = () => {
-  console.log("Data form:", form);
-  alert(`Terima kasih ${form.nama}! Kami akan menghubungi ke nomor ${form.nohp} untuk konfirmasi.`);
+    const message = `
+    *Halo, saya ingin custom buket ✨.*
 
-  form.nama = "";
-  form.nohp = "";
-  form.rincian = "";
-  form.uangmuka = "";
-};
+    Nama: ${form.nama}
+    No HP: ${form.nohp}
+    
+    Rincian:
+    ${form.rincian}
+
+    terimakasih ya kak 🙏
+    `;
+    
+
+const url = `https://api.whatsapp.com/send?phone=${admin}&text=${encodeURIComponent(message)}`;
+
+    window.location.href = url;
+}
 </script>

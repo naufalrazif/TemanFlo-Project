@@ -1,24 +1,47 @@
 <template>
-  <div class="min-h-screen bg-[#f8cfc1] flex flex-col items-center py-10 px-6 md:px-20">
+  <div class="min-h-screen bg-[#FBF5F1] flex flex-col items-center py-10 px-6 md:px-20">
+
+      <Navbar />
+
     <!-- Judul -->
-    <h1 class="text-4xl text-[#3b2a29] font-[Rochester] mb-10 text-center">Ordering Guide</h1>
+    <h1 class="text-4xl text-[#000000] font-[Rochester] mt-20 mb-10 text-center">
+      Ordering Guide
+    </h1>
 
     <!-- Konten utama -->
-    <div class="flex flex-col md:flex-row justify-between gap-10 w-full max-w-6xl">
-      <!-- Kolom kiri (placeholder gambar) -->
-      <div class="flex flex-col gap-6 w-full md:w-1/2">
-        <div class="w-full h-[300px] bg-[#f3bfae] rounded-2xl shadow-md"></div>
-        <div class="w-full h-[300px] bg-[#f3bfae] rounded-2xl shadow-md"></div>
+    <div class="flex flex-col md:flex-row gap-10 w-full max-w-6xl mx-auto">
+
+      <!-- Kolom kiri (gambar) -->
+      <div class="flex flex-col pt-6 gap-10 w-full md:w-[450px]">
+
+        <!-- Gambar 1 -->
+        <div class="w-full h-56 sm:h-72 md:h-[300px] bg-[#f8eee8] rounded-2xl shadow-md overflow-hidden">
+          <img 
+            src="/assets/bunga.jpg" 
+            alt="Bunga" 
+            class="w-full h-full object-cover object-center rounded-2xl shadow-md"
+          />
+        </div>
+
+        <!-- Gambar 2 -->
+        <div class="w-full h-56 sm:h-72 md:h-[300px] bg-[#f8eee8] rounded-2xl shadow-md overflow-hidden">
+          <img 
+            src="/assets/boneka2.jpg" 
+            alt="Boneka" 
+            class="w-full h-full object-cover object-center rounded-2xl shadow-md"
+          />
+        </div>
+
       </div>
 
       <!-- Kolom kanan (card putih isi langkah-langkah) -->
-      <div class="bg-white rounded-2xl shadow-lg p-8 md:p-10 w-full md:w-1/2 text-[#3b2a29] leading-relaxed">
+      <div class="bg-white rounded-2xl shadow-lg p-6 md:p-10 w-full md:w-1/2 text-[#3b2a29] leading-relaxed">
         <ol class="list-decimal list-inside space-y-5">
           <li>
             <span class="font-semibold">Buat Buket Custom Sesuai Keinginanmu</span><br />
             Ingin buket yang benar-benar unik? Kamu bisa merangkai sendiri! Pilih jenis bunga, jumlah tangkai,
             dan gaya bungkus sesuai selera. Cek
-            <a href="#" class="text-[#d27f6d] underline">daftar harga</a> yuk!
+            <a href="/katalog" class="text-[#d27f6d] underline">daftar harga</a> yuk!
           </li>
 
           <li>
@@ -50,12 +73,17 @@
     </div>
 
     <!-- Footer -->
-    <footer class="mt-12 text-[#3b2a29] font-serif text-xl text-center">
-      Ratu Florist Klaten
-    </footer>
+    <section class="max-w-3xl mx-auto space-y-8 px-4 pb-10">
+      <h1 class="text-center font-[Rochester] text-4xl mt-5">
+        <a href="/" class="text-inherit no-underline hover:text-[#53776c] transition">
+          Ratu Florist Klaten
+        </a>
+      </h1>
+    </section>
+
   </div>
 </template>
 
 <script setup>
-// Tidak perlu script tambahan
+import Navbar from "@/components/Navbar.vue";
 </script>

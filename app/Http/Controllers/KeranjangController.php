@@ -100,28 +100,38 @@ class KeranjangController extends Controller
     }
 
      public function checkout()
-    {
-        $userId = Auth::id();
+{
+    $userId = Auth::id();
 
-        // Ambil keranjang user lengkap dengan produk
-        $keranjang = Keranjang::with(['itemKeranjang.produk'])
-            ->where('user_id', $userId)
-            ->first();
+    $keranjang = Keranjang::with(['itemKeranjang.produk'])
+        ->where('user_id', $userId)
+        ->first();
 
-        // Jika keranjang kosong
-        if (!$keranjang || $keranjang->itemKeranjang->count() == 0) {
-            return redirect()->route('keranjang.index')
-                ->with('error', 'Keranjang kosong.');
+    if (!$keranjang || $keranjang->itemKeranjang->count() == 0) {
+        return redirect()->route('keranjang.index')
+            ->with('error', 'Keranjang kosong.');
+    }
+
+    foreach ($keranjang->itemKeranjang as $item) {
+        if ($item->produk) {
+            $item->produk->foto_url = $item->produk->foto
+                ? Storage::url($item->produk->foto)
+                : null;
         }
+    }
 
-         // Tambahkan foto_url manual
-        foreach ($keranjang->itemKeranjang as $item) {
-            if ($item->produk) {
-                $item->produk->foto_url = $item->produk->foto
-                    ? Storage::url($item->produk->foto)
-                    : null;
-            }
-        }
+    // ✅ Karena route protected by 'auth', user pasti ada
+    $user = Auth::user();
+
+    return inertia('Payment', [
+        'items' => $keranjang->itemKeranjang,
+        'user' => [
+            'name' => $user->name,
+            'email' => $user->email,
+            // tambahkan field lain jika perlu, misal:
+            // 'no_telp' => $user->no_telp ?? '',
+        ],
+    ]);
 
         return inertia('Payment', [
             'items' => $keranjang->itemKeranjang,   // ambil dari database

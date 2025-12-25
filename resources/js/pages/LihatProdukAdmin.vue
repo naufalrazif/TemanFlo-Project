@@ -2,7 +2,7 @@
   <AppLayout>
     <div class="min-h-screen bg-[#F9F4F1] font-[Poppins]">
       <!-- Header Section -->
-      <div class="bg-[#E6C7C0] h-[150px] px-10 py-8 flex justify-between items-start">
+      <div class="bg-[#F9F4F1] h-[150px] px-10 py-8 flex justify-between items-start">
         <div class="flex items-center justify-center mb-8">
           <ButtonBack @click="back" />
         </div>
@@ -87,7 +87,7 @@
 
 <script setup>
 import AppLayout from '@/layouts/AppLayout.vue'
-import DropdownSort from '@/Components/Dropdown.vue'
+import DropdownSort from '@/components/Dropdown.vue'
 import ButtonBack from '@/components/ButtonBack.vue'
 import EditProduk from '@/Pages/Edit.vue' // <-- tambahkan ini
 import { ref } from 'vue'
