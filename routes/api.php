@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ProductApiController;
 use App\Http\Controllers\Api\AuthController;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\PaymentController;
 
 
 // Routes publik (tidak butuh auth)
@@ -11,7 +12,7 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::apiResource('products', ProductApiController::class);
-
+Route::post('/checkout/webhook', [PaymentController::class, 'webhook']);
 
 Route::get('/image/{path}', function ($path) {
     if (!preg_match('#^foto/[a-zA-Z0-9._-]+\.(jpg|jpeg|png)$#i', $path)) {

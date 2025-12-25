@@ -74,13 +74,13 @@ const closeEditDialog = () => {
         <!-- Group Tombol Tambah Produk dan Dropdown Tanggal -->
         <div class="flex items-center gap-4">
           <!-- Dropdown Tanggal -->
-          <select class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#5B7263]">
-            <option value="">Semua Tanggal</option>
-            <option value="today">Hari Ini</option>
-            <option value="this_week">Minggu Ini</option>
-            <option value="this_month">Bulan Ini</option>
-            <option value="last_month">Bulan Lalu</option>
-          </select>
+           <button
+              @click="goToPesanan"
+              class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#5B7263]"
+          >
+              Lihat Pesanan
+          </button>
+          
 
           <!-- Tombol Tambah Produk -->
           <Dialog>

@@ -10,7 +10,7 @@ use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\NavbarController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\OtpController;
-use App\Http\Controllers\Auth\RegisteredUserController; // ✅ IMPORT YANG BARU
+use App\Http\Controllers\Auth\RegisteredUserController; 
 use App\Http\Middleware\RoleMiddleware;
 use App\Services\RecaptchaService;
 use App\Http\Controllers\KatalogController;
@@ -60,6 +60,7 @@ Route::middleware(['auth',  RoleMiddleware::class . ':admin'])->group(function (
 
      //dashboard admin
     Route::get('/dashboard-admin', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::put('/admin/pesanan/{id}/status', [AdminController::class, 'updateStatus']);
 });
 
 // route melihat daftar produk
@@ -79,7 +80,7 @@ Route::get('/test-captcha', function () {
         'captcha_secret' => env('CAPTCHA_SECRET') ? '***' . substr(env('CAPTCHA_SECRET'), -4) : 'Not set',
     ];
 });
-
+/*
 Route::get('/debug-role', function () {
     if (auth()->check()) {
         return [
@@ -93,7 +94,7 @@ Route::get('/debug-role', function () {
     }
     return 'Not logged in';
 })->middleware('auth');
-
+*/
 Route::get('/guide', function () {
     return Inertia::render('OrderGuide');
 });

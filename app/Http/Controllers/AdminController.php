@@ -10,10 +10,9 @@ class AdminController extends Controller
         public function index()
     {
         // Ambil semua pesanan lengkap dengan relasi produk & user
-        $pesanans = Pesanan::with(['user', 'Produks','detailPesanans.produk'])
-            ->orderBy('created_at', 'desc');
-                $pesanans = Pesanan::with(['user', 'produks', 'detailPesanans.produk'])
-            ->where('status_pembayaran',) // filter hanya yang sukses
+        
+            $pesanans = Pesanan::with(['user', 'produks', 'detailPesanans.produk'])
+            ->where('status_pembayaran', 'success') // filter hanya yang sukses
             ->orderBy('created_at', 'desc')
     
             ->get();
@@ -23,7 +22,7 @@ class AdminController extends Controller
         ]);
     }
 
-     public function updateStatus(Request $request, $id)
+    public function updateStatus(Request $request, $id)
     {
         // Validasi input
         $validated = $request->validate([
@@ -41,4 +40,7 @@ class AdminController extends Controller
             'message' => 'Status pesanan berhasil diperbarui.'
         ]);
     }
+
+
+    
 }

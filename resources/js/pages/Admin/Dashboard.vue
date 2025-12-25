@@ -1,6 +1,6 @@
 <template>
     <div class="absolute top-0 left-0 w-full z-20">
-        <Navbar />
+      
     </div>
   <div class="min-h-screen bg-[#f4efe9]">
     

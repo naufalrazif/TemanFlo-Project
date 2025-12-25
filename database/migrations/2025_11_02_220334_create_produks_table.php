@@ -19,6 +19,7 @@ return new class extends Migration
     $table->text('deskripsi');
     $table->decimal('harga', 10, 2);
     $table->string('foto');
+    $table->integer('size');
     $table->timestamps();
 });
 
